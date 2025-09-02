@@ -1,0 +1,64 @@
+﻿@page
+@model Frontend.Pages.Diagnosticos.CreateModel
+
+@{
+    ViewData["Title"] = "Registrar Nuevo Diagnóstico";
+}
+
+<h1>Registrar Nuevo Diagnóstico</h1>
+
+<a asp-page="Index" class="btn btn-secondary mb-3">Volver al listado</a>
+
+@if (!ViewData.ModelState.IsValid)
+{
+    <div class="alert alert-danger">
+        <ul>
+            @foreach (var entry in ViewData.ModelState.Values)
+            {
+                @foreach (var error in entry.Errors)
+                {
+                    <li>@error.ErrorMessage</li>
+                }
+            }
+        </ul>
+    </div>
+}
+
+<form method="post" class="needs-validation" novalidate>
+
+    <div class="form-group mb-3">
+        <label asp-for="Diagnostico.Detalle" class="form-label"></label>
+        <textarea asp-for="Diagnostico.Detalle" class="form-control" required></textarea>
+        <span asp-validation-for="Diagnostico.Detalle" class="text-danger"></span>
+    </div>
+
+    <div class="form-group mb-3">
+        <label asp-for="Diagnostico.IdConsulta" class="form-label">Consulta</label>
+        <select asp-for="Diagnostico.IdConsulta" class="form-control" required>
+            <option value="">-- Seleccione una Consulta --</option>
+            @if (Model.Consultas != null)
+            {
+                @foreach (var consulta in Model.Consultas)
+                {
+                    <option value="@consulta.IdConsulta">
+                        @if (consulta.Paciente != null && consulta.Paciente.Persona != null)
+                        {
+                            @($"Consulta ID: {consulta.IdConsulta} - Paciente: {consulta.Paciente.Persona.Nombre} {consulta.Paciente.Persona.ApellidoPaterno}")
+                        }
+                        else
+                        {
+                            @($"Consulta ID: {consulta.IdConsulta}")
+                        }
+                    </option>
+                }
+            }
+        </select>
+        <span asp-validation-for="Diagnostico.IdConsulta" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Registrar</button>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

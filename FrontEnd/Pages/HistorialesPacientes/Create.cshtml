@@ -1,0 +1,81 @@
+﻿@page
+@model Frontend.Pages.HistorialesPacientes.CreateModel
+
+@{
+    ViewData["Title"] = "Registrar Nuevo Historial de Paciente";
+}
+
+<h1>Registrar Nuevo Historial de Paciente</h1>
+
+<a asp-page="Index" class="btn btn-secondary mb-3">Volver al listado</a>
+
+@if (!ViewData.ModelState.IsValid)
+{
+    <div class="alert alert-danger">
+        <ul>
+            @foreach (var entry in ViewData.ModelState.Values)
+            {
+                @foreach (var error in entry.Errors)
+                {
+                    <li>@error.ErrorMessage</li>
+                }
+            }
+        </ul>
+    </div>
+}
+
+<form method="post" class="needs-validation" novalidate>
+    <div class="form-group mb-3">
+        <label asp-for="HistorialPaciente.IdPaciente" class="form-label">Paciente</label>
+        <select asp-for="HistorialPaciente.IdPaciente" class="form-control" required>
+            <option value="">-- Seleccione un Paciente --</option>
+            @if (Model.Pacientes != null)
+            {
+                @foreach (var paciente in Model.Pacientes)
+                {
+                    <option value="@paciente.IdPaciente">
+                        @if (paciente.Persona != null)
+                        {
+                            @($"{paciente.Persona.Nombre} {paciente.Persona.ApellidoPaterno} {paciente.Persona.ApellidoMaterno}")
+                        }
+                        else
+                        {
+                            @($"Paciente ID: {paciente.IdPaciente}")
+                        }
+                    </option>
+                }
+            }
+        </select>
+        <span asp-validation-for="HistorialPaciente.IdPaciente" class="text-danger"></span>
+    </div>
+
+    <div class="form-group mb-3">
+        <label asp-for="HistorialPaciente.Fecha" class="form-label"></label>
+        <input asp-for="HistorialPaciente.Fecha" type="date" class="form-control" required />
+        <span asp-validation-for="HistorialPaciente.Fecha" class="text-danger"></span>
+    </div>
+
+    <div class="form-group mb-3">
+        <label asp-for="HistorialPaciente.Peso" class="form-label">Peso (kg)</label>
+        <input asp-for="HistorialPaciente.Peso" type="number" step="0.01" class="form-control" required />
+        <span asp-validation-for="HistorialPaciente.Peso" class="text-danger"></span>
+    </div>
+
+    <div class="form-group mb-3">
+        <label asp-for="HistorialPaciente.Talla" class="form-label">Talla (m)</label>
+        <input asp-for="HistorialPaciente.Talla" type="number" step="0.01" class="form-control" required />
+        <span asp-validation-for="HistorialPaciente.Talla" class="text-danger"></span>
+    </div>
+
+    <div class="form-group mb-3">
+        <label asp-for="HistorialPaciente.IMC" class="form-label">IMC</label>
+        <input asp-for="HistorialPaciente.IMC" type="number" step="0.1" class="form-control" />
+        <span asp-validation-for="HistorialPaciente.IMC" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Registrar</button>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

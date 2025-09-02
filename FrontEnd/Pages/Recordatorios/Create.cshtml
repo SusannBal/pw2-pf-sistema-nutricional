@@ -1,0 +1,62 @@
+﻿@page
+@model Frontend.Pages.Recordatorios.CreateModel
+
+@{
+    ViewData["Title"] = "Registrar Nuevo Recordatorio";
+}
+
+<h1>Registrar Nuevo Recordatorio</h1>
+
+<a asp-page="Index" class="btn btn-secondary mb-3">Volver al listado</a>
+
+@if (!ViewData.ModelState.IsValid)
+{
+    <div class="alert alert-danger">
+        <ul>
+            @foreach (var entry in ViewData.ModelState.Values)
+            {
+                @foreach (var error in entry.Errors)
+                {
+                    <li>@error.ErrorMessage</li>
+                }
+            }
+        </ul>
+    </div>
+}
+
+<form method="post" class="needs-validation" novalidate>
+    <div class="form-group mb-3">
+        <label asp-for="Recordatorio.IdPersona" class="form-label">Persona</label>
+        <select asp-for="Recordatorio.IdPersona" class="form-control" required>
+            <option value="">-- Seleccione una Persona --</option>
+            @if (Model.Personas != null)
+            {
+                @foreach (var persona in Model.Personas)
+                {
+                    <option value="@persona.IdPersona">
+                        @($"Persona ID: {persona.IdPersona} - Nombre: {persona.Nombre} {persona.ApellidoPaterno} {persona.ApellidoMaterno}")
+                    </option>
+                }
+            }
+        </select>
+        <span asp-validation-for="Recordatorio.IdPersona" class="text-danger"></span>
+    </div>
+
+    <div class="form-group mb-3">
+        <label asp-for="Recordatorio.Mensaje" class="form-label"></label>
+        <textarea asp-for="Recordatorio.Mensaje" class="form-control" required></textarea>
+        <span asp-validation-for="Recordatorio.Mensaje" class="text-danger"></span>
+    </div>
+
+    <div class="form-group mb-3">
+        <label asp-for="Recordatorio.FechaHora" class="form-label"></label>
+        <input asp-for="Recordatorio.FechaHora" type="datetime-local" class="form-control" required />
+        <span asp-validation-for="Recordatorio.FechaHora" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Registrar</button>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

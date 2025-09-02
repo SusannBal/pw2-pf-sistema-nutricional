@@ -28,12 +28,36 @@ build_property._RazorSourceGeneratorDebug =
 build_property.EffectiveAnalysisLevelStyle = 8.0
 build_property.EnableCodeStyleSeverity = 
 
+[D:/PW2/Proyecto/Backend/Backend/FrontEnd/Pages/ActividadesFisicas/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQWN0aXZpZGFkZXNGaXNpY2FzXENyZWF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/PW2/Proyecto/Backend/Backend/FrontEnd/Pages/ActividadesFisicas/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQWN0aXZpZGFkZXNGaXNpY2FzXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/PW2/Proyecto/Backend/Backend/FrontEnd/Pages/Comidas/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ29taWRhc1xDcmVhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/PW2/Proyecto/Backend/Backend/FrontEnd/Pages/Comidas/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ29taWRhc1xJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/PW2/Proyecto/Backend/Backend/FrontEnd/Pages/Consultas/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ29uc3VsdGFzXENyZWF0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/PW2/Proyecto/Backend/Backend/FrontEnd/Pages/Consultas/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ29uc3VsdGFzXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/PW2/Proyecto/Backend/Backend/FrontEnd/Pages/Diagnosticos/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRGlhZ25vc3RpY29zXENyZWF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/PW2/Proyecto/Backend/Backend/FrontEnd/Pages/Diagnosticos/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRGlhZ25vc3RpY29zXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/PW2/Proyecto/Backend/Backend/FrontEnd/Pages/Error.cshtml]
@@ -46,6 +70,14 @@ build_metadata.AdditionalFiles.CssScope =
 
 [D:/PW2/Proyecto/Backend/Backend/FrontEnd/Pages/HistorialesMedicos/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSGlzdG9yaWFsZXNNZWRpY29zXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/PW2/Proyecto/Backend/Backend/FrontEnd/Pages/HistorialesPacientes/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSGlzdG9yaWFsZXNQYWNpZW50ZXNcQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/PW2/Proyecto/Backend/Backend/FrontEnd/Pages/HistorialesPacientes/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSGlzdG9yaWFsZXNQYWNpZW50ZXNcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/PW2/Proyecto/Backend/Backend/FrontEnd/Pages/Index.cshtml]
@@ -76,8 +108,32 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUGVyc29uYXNcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/PW2/Proyecto/Backend/Backend/FrontEnd/Pages/PlanesNutricionales/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUGxhbmVzTnV0cmljaW9uYWxlc1xDcmVhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/PW2/Proyecto/Backend/Backend/FrontEnd/Pages/PlanesNutricionales/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUGxhbmVzTnV0cmljaW9uYWxlc1xJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/PW2/Proyecto/Backend/Backend/FrontEnd/Pages/Privacy.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUHJpdmFjeS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/PW2/Proyecto/Backend/Backend/FrontEnd/Pages/Recomendaciones/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUmVjb21lbmRhY2lvbmVzXENyZWF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/PW2/Proyecto/Backend/Backend/FrontEnd/Pages/Recomendaciones/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUmVjb21lbmRhY2lvbmVzXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/PW2/Proyecto/Backend/Backend/FrontEnd/Pages/Recordatorios/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUmVjb3JkYXRvcmlvc1xDcmVhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/PW2/Proyecto/Backend/Backend/FrontEnd/Pages/Recordatorios/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUmVjb3JkYXRvcmlvc1xJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/PW2/Proyecto/Backend/Backend/FrontEnd/Pages/Shared/_ValidationScriptsPartial.cshtml]

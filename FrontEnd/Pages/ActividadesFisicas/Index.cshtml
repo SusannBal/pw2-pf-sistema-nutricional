@@ -1,0 +1,131 @@
+﻿@page
+@model Frontend.Pages.ActividadesFisicas.IndexModel
+
+@{
+    ViewData["Title"] = "Listado de Actividades Físicas";
+}
+
+<style>
+    .table-container {
+        margin-top: 20px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        border-radius: 8px;
+        overflow: hidden;
+    }
+
+    .table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 0;
+    }
+
+        .table th, .table td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .table thead th {
+            background-color: #f2f2f2;
+            color: #333;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .table tbody tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        .table tbody tr:hover {
+            background-color: #e9e9e9;
+            cursor: pointer;
+        }
+
+    .alert-message {
+        padding: 15px;
+        margin-bottom: 20px;
+        border: 1px solid transparent;
+        border-radius: 4px;
+        color: #a94442;
+        background-color: #f2dede;
+        border-color: #ebccd1;
+    }
+
+    .page-header {
+        color: #333;
+        margin-bottom: 25px;
+        font-size: 2.5em;
+        font-weight: 300;
+    }
+
+    .btn-create {
+        display: inline-block;
+        background-color: #007bff;
+        color: white;
+        padding: 10px 20px;
+        border-radius: 5px;
+        text-decoration: none;
+        margin-bottom: 20px;
+        transition: background-color 0.3s ease;
+    }
+
+        .btn-create:hover {
+            background-color: #0056b3;
+        }
+</style>
+
+<h1 class="page-header">Listado de Actividades Físicas</h1>
+
+<div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+    <ul class="navbar-nav flex-grow-1">
+        <li class="nav-item">
+            <a class="btn-create" asp-area="" asp-page="/ActividadesFisicas/Create">Registrar Nueva Actividad Física</a>
+        </li>
+    </ul>
+</div>
+
+@if (!ViewData.ModelState.IsValid)
+{
+    <div class="alert-message">
+        <ul>
+            @foreach (var entry in ViewData.ModelState.Values)
+            {
+                @foreach (var error in entry.Errors)
+                {
+                    <li>@error.ErrorMessage</li>
+                }
+            }
+        </ul>
+    </div>
+}
+
+@if (Model.ActividadesFisicas == null || !Model.ActividadesFisicas.Any())
+{
+    <div class="alert-message">
+        <h3>No hay actividades físicas registradas para mostrar.</h3>
+    </div>
+}
+else
+{
+    <div class="table-container">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Descripción</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var actividad in Model.ActividadesFisicas)
+                {
+                    <tr>
+                        <td>@actividad.IdActividad</td>
+                        <td>@actividad.Nombre</td>
+                        <td>@actividad.Descripcion</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
