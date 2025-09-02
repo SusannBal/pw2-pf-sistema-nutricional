@@ -7,6 +7,8 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/FrontEnd.styles.css" asp-append-version="true" />
+    <!-- Bootstrap Icons (opcional, para iconos) -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 </head>
 <body>
     <header>
@@ -20,44 +22,106 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Personas/Index">Personas</a>
+                            <a class="nav-link text-dark" asp-area="" asp-page="/Index">Inicio</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Pacientes/Index">Pacientes</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Nutricionistas/Index">Nutricionistas</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Consultas/Index">Consultas</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/HistorialesMedicos/Index">Historial Médico</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/HistorialesPacientes/Index">Historial Paciente</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/ActividadesFisicas/Index">Actividad Física</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/RegistroActividad/Index">Registro Actividad</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Diagnosticos/Index">Diagnósticos</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/PlanesNutricionales/Index">Plan Nutricional</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Comidas/Index">Comidas</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Recomendaciones/Index">Recomendaciones</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Recordatorios/Index">Recordatorios</a>
-                        </li>
+
+                        @if (Context.Session.GetString("UserRole") == "Nutricionista")
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-page="/NutricionistaDashboard">Mi Panel</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-page="/Consultas/Index">Gestión de Consultas</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-page="/Diagnosticos/Index">Gestión de Diagnósticos</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-page="/PlanesNutricionales/Index">Gestión de Planes Nutricionales</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-page="/Comidas/Index">Gestión de Comidas</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-page="/Recomendaciones/Index">Gestión de Recomendaciones</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-page="/ActividadesFisicas/Index">Gestión de Actividades Físicas</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-page="/HistorialesMedicos/Index">Gestión de Historiales Médicos</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-page="/HistorialesPacientes/Index">Gestión de Historiales de Pacientes</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-page="/Recordatorios/Index">Gestión de Recordatorios</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-page="/Personas/Index">Gestión de Personas</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-page="/Pacientes/Index">Gestión de Pacientes</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-page="/Nutricionistas/Index">Gestión de Nutricionistas</a>
+                            </li>
+                        }
+                        else if (Context.Session.GetString("UserRole") == "Paciente")
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-page="/PacienteDashboard">Mi Panel</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-page="/Consultas/PacienteConsultas">Mis Consultas</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-page="/PlanesNutricionales/PacientePlanes">Mis Planes Nutricionales</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-page="/Comidas/PacienteComidas">Mis Comidas</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-page="/Recomendaciones/PacienteRecomendaciones">Mis Recomendaciones</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-page="/RegistroActividad/PacienteActividades">Mis Actividades Físicas</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-page="/HistorialesMedicos/PacienteHistorialMedico">Mi Historial Médico</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-page="/HistorialesPacientes/PacienteHistorialPaciente">Mi Historial de Peso/Talla</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-page="/Recordatorios/PacienteRecordatorios">Mis Recordatorios</a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-page="/Login">Iniciar Sesión</a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link text-dark dropdown-toggle" href="#" id="navbarDropdownRegister" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Registrarse
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="navbarDropdownRegister">
+                                    <li><a class="dropdown-item" asp-page="/Nutricionistas/Register">Como Nutricionista</a></li>
+                                    <li><a class="dropdown-item" asp-page="/Pacientes/Register">Como Paciente</a></li>
+                                </ul>
+                            </li>
+                        }
+                    </ul>
+                    <ul class="navbar-nav">
+                        @if (Context.Session.GetString("UserRole") != null)
+                        {
+                            <li class="nav-item">
+                                <form method="post" asp-page="/Logout" class="form-inline">
+                                    <button type="submit" class="nav-link btn btn-link text-dark">Cerrar Sesión</button>
+                                </form>
+                            </li>
+                        }
                     </ul>
                 </div>
             </div>

@@ -1,0 +1,57 @@
+﻿@page
+@model Frontend.Pages.HistorialesPacientes.PacienteHistorialPacienteModel
+@{
+    ViewData["Title"] = "Mi Historial de Peso/Talla";
+}
+
+<h1>Mi Historial de Peso/Talla</h1>
+
+@if (!ViewData.ModelState.IsValid)
+{
+    <div class="alert alert-danger">
+        <ul>
+            @foreach (var entry in ViewData.ModelState.Values)
+            {
+                @foreach (var error in entry.Errors)
+                {
+                    <li>@error.ErrorMessage</li>
+                }
+            }
+        </ul>
+    </div>
+}
+
+@if (Model.HistorialesPacientes == null || !Model.HistorialesPacientes.Any())
+{
+    <div class="alert-message">
+        <h3>No tienes historial de peso/talla registrado.</h3>
+    </div>
+}
+else
+{
+    <div class="table-container">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>ID Historial</th>
+                    <th>Fecha</th>
+                    <th>Peso (kg)</th>
+                    <th>Talla (m)</th>
+                    <th>IMC</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var historial in Model.HistorialesPacientes)
+                {
+                    <tr>
+                        <td>@historial.IdHistorial</td>
+                        <td>@historial.Fecha.ToShortDateString()</td>
+                        <td>@historial.Peso</td>
+                        <td>@historial.Talla</td>
+                        <td>@historial.IMC</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}

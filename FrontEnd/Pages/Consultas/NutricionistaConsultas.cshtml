@@ -1,0 +1,118 @@
+﻿@page
+@model Frontend.Pages.Consultas.NutricionistaConsultasModel
+@{
+    ViewData["Title"] = "Mis Consultas";
+}
+
+<h1>Mis Consultas</h1>
+
+@if (!ViewData.ModelState.IsValid)
+{
+    <div class="alert alert-danger">
+        <ul>
+            @foreach (var entry in ViewData.ModelState.Values)
+            {
+                @foreach (var error in entry.Errors)
+                {
+                    <li>@error.ErrorMessage</li>
+                }
+            }
+        </ul>
+    </div>
+}
+
+@if (Model.Consultas == null || !Model.Consultas.Any())
+{
+    <div class="alert-message">
+        <h3>No tienes consultas registradas.</h3>
+    </div>
+}
+else
+{
+    <div class="table-container">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>ID Consulta</th>
+                    <th>Fecha</th>
+                    <th>Paciente</th>
+                    <th>Motivo</th>
+                    <th>Estado</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var consulta in Model.Consultas)
+                {
+                    <tr>
+                        <td>@consulta.IdConsulta</td>
+                        <td>@consulta.Fecha.ToShortDateString()</td>
+                        <td>
+                            @if (consulta.Paciente != null && consulta.Paciente.Persona != null)
+                            {
+                                @($"{consulta.Paciente.Persona.Nombre} {consulta.Paciente.Persona.ApellidoPaterno}")
+                            }
+                            else
+                            {
+                                <text>N/A</text>
+                            }
+                        </td>
+                        <td>@consulta.Motivo</td>
+                        <td>@consulta.Estado</td>
+                        <td>
+                            <a asp-page="/Consultas/Details" asp-route-id="@consulta.IdConsulta" class="btn btn-sm btn-info">Ver Detalles</a>
+                            <a asp-page="/Diagnosticos/Create" asp-route-idConsulta="@consulta.IdConsulta" class="btn btn-sm btn-success">Generar Diagnóstico</a>
+                            <a asp-page="/PlanesNutricionales/Create" asp-route-idConsulta="@consulta.IdConsulta" class="btn btn-sm btn-warning">Crear Plan Nutricional</a>
+                            <a asp-page="/Recomendaciones/Create" asp-route-idConsulta="@consulta.IdConsulta" class="btn btn-sm btn-primary">Añadir Recomendación</a>
+                            <a asp-page="/HistorialesMedicos/PacienteHistorialMedico" asp-route-idPaciente="@consulta.IdPaciente" class="btn btn-sm btn-secondary">Ver Historial Médico Paciente</a>
+                            <a asp-page="/HistorialesPacientes/PacienteHistorialPaciente" asp-route-idPaciente="@consulta.IdPaciente" class="btn btn-sm btn-secondary">Ver Historial Peso/Talla Paciente</a>
+                            <a asp-page="/RegistroActividad/Create" asp-route-idPaciente="@consulta.IdPaciente" class="btn btn-sm btn-info">Registrar Actividad Física</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+
+<!-- Opcional: Calendario de Consultas -->
+<h2 class="mt-5">Calendario de Consultas</h2>
+<div id="calendar"></div>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var calendarEl = document.getElementById('calendar');
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                initialView: 'dayGridMonth',
+                locale: 'es', // Cambiar a español
+                headerToolbar: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'dayGridMonth,timeGridWeek,timeGridDay'
+                },
+                events: [
+                    @foreach (var consulta in Model.Consultas)
+                    {
+                            <text>
+                            {
+                                title: '@($"Consulta con {consulta.Paciente?.Persona?.Nombre} {consulta.Paciente?.Persona?.ApellidoPaterno} - {consulta.Motivo}")',
+                                start: '@consulta.Fecha.ToString("yyyy-MM-ddTHH:mm:ss")',
+                                end: '@consulta.FechaFin?.ToString("yyyy-MM-ddTHH:mm:ss")', // Si tienes FechaFin
+                                url: '/Consultas/Details?id=@consulta.IdConsulta' // Enlace a los detalles de la consulta
+                            },
+                            </text>
+                    }
+                ],
+                eventClick: function(info) {
+                    info.jsEvent.preventDefault(); // don't let the browser navigate
+                    if (info.event.url) {
+                        window.open(info.event.url);
+                    }
+                }
+            });
+            calendar.render();
+        });
+    </script>
+}

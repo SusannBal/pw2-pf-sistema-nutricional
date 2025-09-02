@@ -1,0 +1,58 @@
+﻿@page
+@model Frontend.Pages.Consultas.DetailsModel
+@{
+    ViewData["Title"] = "Detalles de Consulta";
+}
+
+<h1>Detalles de Consulta</h1>
+
+@if (Model.Consulta == null)
+{
+    <div class="alert alert-warning">
+        <p>No se encontró la consulta.</p>
+    </div>
+}
+else
+{
+    <div class="card mb-3">
+        <div class="card-header">
+            Consulta ID: @Model.Consulta.IdConsulta
+        </div>
+        <div class="card-body">
+            <p><strong>Fecha:</strong> @Model.Consulta.Fecha.ToShortDateString() @Model.Consulta.Fecha.ToShortTimeString()</p>
+            <p><strong>Paciente:</strong> @(Model.Consulta.Paciente?.Persona?.Nombre) @(Model.Consulta.Paciente?.Persona?.ApellidoPaterno)</p>
+            <p><strong>Nutricionista:</strong> @(Model.Consulta.Nutricionista?.Persona?.Nombre) @(Model.Consulta.Nutricionista?.Persona?.ApellidoPaterno)</p>
+            <p><strong>Motivo:</strong> @Model.Consulta.Motivo</p>
+            <p><strong>Observaciones:</strong> @Model.Consulta.Observaciones</p>
+            <p><strong>Estado:</strong> @Model.Consulta.Estado</p>
+            <p><strong>Fecha Fin:</strong> @Model.Consulta.FechaFin?.ToShortDateString() @Model.Consulta.FechaFin?.ToShortTimeString()</p>
+            <p><strong>Costo:</strong> @Model.Consulta.Costo?.ToString("C")</p>
+            <p><strong>Síntomas:</strong> @Model.Consulta.Sintomas</p>
+            <p><strong>Examen Físico:</strong> @Model.Consulta.ExamenFisico</p>
+        </div>
+    </div>
+
+    <h2 class="mt-4">Acciones y Historiales del Paciente</h2>
+    <div class="list-group">
+        <a asp-page="/Diagnosticos/Create" asp-route-idConsulta="@Model.Consulta.IdConsulta" class="list-group-item list-group-item-action">
+            <i class="bi bi-file-earmark-medical"></i> Generar Nuevo Diagnóstico para este Paciente
+        </a>
+        <a asp-page="/PlanesNutricionales/Create" asp-route-idConsulta="@Model.Consulta.IdConsulta" class="list-group-item list-group-item-action">
+            <i class="bi bi-journal-medical"></i> Crear Nuevo Plan Nutricional para este Paciente
+        </a>
+        <a asp-page="/Recomendaciones/Create" asp-route-idConsulta="@Model.Consulta.IdConsulta" class="list-group-item list-group-item-action">
+            <i class="bi bi-lightbulb"></i> Añadir Nueva Recomendación para este Paciente
+        </a>
+        <a asp-page="/RegistroActividad/Create" asp-route-idPaciente="@Model.Consulta.IdPaciente" class="list-group-item list-group-item-action">
+            <i class="bi bi-activity"></i> Registrar Actividad Física para este Paciente
+        </a>
+        <a asp-page="/HistorialesMedicos/PacienteHistorialMedico" asp-route-idPaciente="@Model.Consulta.IdPaciente" class="list-group-item list-group-item-action">
+            <i class="bi bi-clipboard-data"></i> Ver Historial Médico del Paciente
+        </a>
+        <a asp-page="/HistorialesPacientes/PacienteHistorialPaciente" asp-route-idPaciente="@Model.Consulta.IdPaciente" class="list-group-item list-group-item-action">
+            <i class="bi bi-graph-up"></i> Ver Historial de Peso/Talla del Paciente
+        </a>
+    </div>
+
+    <a asp-page="NutricionistaConsultas" class="btn btn-secondary mt-3">Volver a Mis Consultas</a>
+}

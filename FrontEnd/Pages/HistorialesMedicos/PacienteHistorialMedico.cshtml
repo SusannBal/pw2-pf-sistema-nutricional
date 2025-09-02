@@ -1,0 +1,65 @@
+﻿@page
+@model Frontend.Pages.HistorialesMedicos.PacienteHistorialMedicoModel
+@{
+    ViewData["Title"] = "Mi Historial Médico";
+}
+
+<h1>Mi Historial Médico</h1>
+
+@if (!ViewData.ModelState.IsValid)
+{
+    <div class="alert alert-danger">
+        <ul>
+            @foreach (var entry in ViewData.ModelState.Values)
+            {
+                @foreach (var error in entry.Errors)
+                {
+                    <li>@error.ErrorMessage</li>
+                }
+            }
+        </ul>
+    </div>
+}
+
+@if (Model.HistorialesMedicos == null || !Model.HistorialesMedicos.Any())
+{
+    <div class="alert-message">
+        <h3>No tienes historial médico registrado.</h3>
+    </div>
+}
+else
+{
+    <div class="table-container">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>ID Historial</th>
+                    <th>Enfermedad</th>
+                    <th>Descripción</th>
+                    <th>Fecha Diagnóstico</th>
+                    <th>Fecha Curación</th>
+                    <th>Alergias</th>
+                    <th>Intolerancias</th>
+                    <th>Tratamiento</th>
+                    <th>Medicamentos</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var historial in Model.HistorialesMedicos)
+                {
+                    <tr>
+                        <td>@historial.IdHistorialMedico</td>
+                        <td>@historial.Enfermedad</td>
+                        <td>@historial.Descripcion</td>
+                        <td>@historial.FechaDiagnostico?.ToShortDateString()</td>
+                        <td>@historial.FechaCuracion?.ToShortDateString()</td>
+                        <td>@historial.Alergias</td>
+                        <td>@historial.Intolerancias</td>
+                        <td>@historial.Tratamiento</td>
+                        <td>@historial.Medicamentos</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}

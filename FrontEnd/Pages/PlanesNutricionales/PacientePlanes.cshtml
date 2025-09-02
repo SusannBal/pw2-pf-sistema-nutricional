@@ -1,0 +1,68 @@
+﻿@page
+@model Frontend.Pages.PlanesNutricionales.PacientePlanesModel
+@{
+    ViewData["Title"] = "Mis Planes Nutricionales";
+}
+
+<h1>Mis Planes Nutricionales</h1>
+
+@if (!ViewData.ModelState.IsValid)
+{
+    <div class="alert alert-danger">
+        <ul>
+            @foreach (var entry in ViewData.ModelState.Values)
+            {
+                @foreach (var error in entry.Errors)
+                {
+                    <li>@error.ErrorMessage</li>
+                }
+            }
+        </ul>
+    </div>
+}
+
+@if (Model.PlanesNutricionales == null || !Model.PlanesNutricionales.Any())
+{
+    <div class="alert-message">
+        <h3>No tienes planes nutricionales asignados.</h3>
+    </div>
+}
+else
+{
+    <div class="table-container">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>ID Plan</th>
+                    <th>Nombre</th>
+                    <th>Descripción</th>
+                    <th>Consulta Asociada</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var plan in Model.PlanesNutricionales)
+                {
+                    <tr>
+                        <td>@plan.IdPlan</td>
+                        <td>@plan.Nombre</td>
+                        <td>@plan.Descripcion</td>
+                        <td>
+                            @if (plan.Consulta != null)
+                            {
+                                @($"Consulta ID: {plan.Consulta.IdConsulta} - Motivo: {plan.Consulta.Motivo}")
+                            }
+                            else
+                            {
+                                <text>N/A</text>
+                            }
+                        </td>
+                        <td>
+                            <a asp-page="/Comidas/PacienteComidas" asp-route-idPlan="@plan.IdPlan" class="btn btn-sm btn-info">Ver Comidas del Plan</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}

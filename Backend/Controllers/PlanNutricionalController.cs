@@ -14,27 +14,33 @@ namespace Backend.Controllers
     [ApiController]
     public class PlanNutricionalController : ControllerBase
     {
-        private readonly BackendContext BackendContext;
+        private readonly BackendContext _context;
 
-        public PlanNutricionalController(BackendContext BackendContext)
+        public PlanNutricionalController(BackendContext context)
         {
-            this.BackendContext = BackendContext;
+            _context = context;
         }
 
         // GET: api/PlanNutricional
+        // GET: api/PlanNutricional?idConsulta=5
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<PlanNutricional>>> GetPlanesNutricionales()
+        public async Task<ActionResult<IEnumerable<PlanNutricional>>> GetPlanesNutricionales([FromQuery] int? idConsulta)
         {
-            return await BackendContext.PlanesNutricionales
-                .Include(p => p.Consulta)
-                .ToListAsync();
+            var query = _context.PlanesNutricionales.Include(p => p.Consulta).AsQueryable();
+
+            if (idConsulta.HasValue)
+            {
+                query = query.Where(p => p.IdConsulta == idConsulta.Value);
+            }
+
+            return await query.ToListAsync();
         }
 
         // GET: api/PlanNutricional/5
         [HttpGet("{id}")]
         public async Task<ActionResult<PlanNutricional>> GetPlanNutricional(int id)
         {
-            var plan = await BackendContext.PlanesNutricionales
+            var plan = await _context.PlanesNutricionales
                 .Include(p => p.Consulta)
                 .FirstOrDefaultAsync(p => p.IdPlan == id);
 
@@ -51,14 +57,14 @@ namespace Backend.Controllers
         public async Task<ActionResult<PlanNutricional>> PostPlanNutricional(PlanNutricional planNutricional)
         {
             // Validar que la consulta existe
-            var consulta = await BackendContext.Consultas.FindAsync(planNutricional.IdConsulta);
+            var consulta = await _context.Consultas.FindAsync(planNutricional.IdConsulta);
             if (consulta == null)
             {
                 return BadRequest(new { mensaje = "La consulta especificada no existe" });
             }
 
             // Validar nombre único por consulta
-            var planExistente = await BackendContext.PlanesNutricionales
+            var planExistente = await _context.PlanesNutricionales
                 .FirstOrDefaultAsync(p => p.Nombre == planNutricional.Nombre && p.IdConsulta == planNutricional.IdConsulta);
 
             if (planExistente != null)
@@ -66,8 +72,8 @@ namespace Backend.Controllers
                 return BadRequest(new { mensaje = "Ya existe un plan con este nombre para la misma consulta" });
             }
 
-            BackendContext.PlanesNutricionales.Add(planNutricional);
-            await BackendContext.SaveChangesAsync();
+            _context.PlanesNutricionales.Add(planNutricional);
+            await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetPlanNutricional", new { id = planNutricional.IdPlan },
                 new
@@ -75,6 +81,83 @@ namespace Backend.Controllers
                     mensaje = "Plan nutricional creado exitosamente",
                     plan = planNutricional
                 });
+        }
+
+        // PUT: api/PlanNutricional/5
+        [HttpPut("{id}")]
+        public async Task<IActionResult> PutPlanNutricional(int id, PlanNutricional planNutricional)
+        {
+            if (id != planNutricional.IdPlan)
+            {
+                return BadRequest(new { mensaje = "El ID del plan nutricional no coincide" });
+            }
+
+            // Asegurarse de que la consulta asociada no cambie
+            var existingPlan = await _context.PlanesNutricionales.AsNoTracking().FirstOrDefaultAsync(p => p.IdPlan == id);
+            if (existingPlan == null)
+            {
+                return NotFound(new { mensaje = "Plan nutricional no encontrado" });
+            }
+            if (existingPlan.IdConsulta != planNutricional.IdConsulta)
+            {
+                return BadRequest(new { mensaje = "No se permite cambiar la consulta asociada a un plan nutricional existente." });
+            }
+
+            // Validar nombre único por consulta (si se cambia)
+            var planExistente = await _context.PlanesNutricionales
+                .FirstOrDefaultAsync(p => p.Nombre == planNutricional.Nombre && p.IdConsulta == planNutricional.IdConsulta && p.IdPlan != id);
+            if (planExistente != null)
+            {
+                return BadRequest(new { mensaje = "Ya existe un plan con este nombre para la misma consulta" });
+            }
+
+            _context.Entry(planNutricional).State = EntityState.Modified;
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!PlanNutricionalExists(id))
+                {
+                    return NotFound(new { mensaje = "Plan nutricional no encontrado" });
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return Ok(new { mensaje = "Plan nutricional actualizado exitosamente" });
+        }
+
+        // DELETE: api/PlanNutricional/5
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeletePlanNutricional(int id)
+        {
+            var plan = await _context.PlanesNutricionales.FindAsync(id);
+            if (plan == null)
+            {
+                return NotFound(new { mensaje = "Plan nutricional no encontrado" });
+            }
+
+            // Verificar si el plan tiene comidas asociadas
+            var hasComidas = await _context.Comidas.AnyAsync(c => c.IdPlan == id);
+            if (hasComidas)
+            {
+                return BadRequest(new { mensaje = "No se puede eliminar el plan nutricional porque tiene comidas asociadas." });
+            }
+
+            _context.PlanesNutricionales.Remove(plan);
+            await _context.SaveChangesAsync();
+
+            return Ok(new { mensaje = "Plan nutricional eliminado exitosamente" });
+        }
+
+        private bool PlanNutricionalExists(int id)
+        {
+            return _context.PlanesNutricionales.Any(e => e.IdPlan == id);
         }
     }
 }

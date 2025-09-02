@@ -1,0 +1,93 @@
+﻿@page
+@model Frontend.Pages.PacienteDashboardModel
+@{
+    ViewData["Title"] = "Panel de Paciente";
+}
+
+<h1>Bienvenido, @Model.UserName!</h1>
+
+<p>Desde aquí puedes ver tu información, consultas, planes nutricionales y más.</p>
+
+<div class="row">
+    <div class="col-md-4 mb-3">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Mis Datos Personales</h5>
+                <p class="card-text">Revisa y actualiza tu información personal.</p>
+                <a asp-page="/Personas/Edit" asp-route-id="@Model.PersonaId" class="btn btn-primary">Ver/Editar Mis Datos</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 mb-3">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Mis Consultas</h5>
+                <p class="card-text">Visualiza el historial de tus consultas.</p>
+                <a asp-page="/Consultas/PacienteConsultas" class="btn btn-primary">Ver Mis Consultas</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 mb-3">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Mis Planes Nutricionales</h5>
+                <p class="card-text">Revisa los planes nutricionales asignados.</p>
+                <a asp-page="/PlanesNutricionales/PacientePlanes" class="btn btn-primary">Ver Mis Planes</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 mb-3">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Mis Comidas</h5>
+                <p class="card-text">Consulta las comidas de tus planes.</p>
+                <a asp-page="/Comidas/PacienteComidas" class="btn btn-primary">Ver Mis Comidas</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 mb-3">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Mis Recomendaciones</h5>
+                <p class="card-text">Revisa las recomendaciones de tu nutricionista.</p>
+                <a asp-page="/Recomendaciones/PacienteRecomendaciones" class="btn btn-primary">Ver Mis Recomendaciones</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 mb-3">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Mis Actividades Físicas</h5>
+                <p class="card-text">Consulta las actividades físicas recomendadas.</p>
+                <a asp-page="/RegistroActividad/PacienteActividades" class="btn btn-primary">Ver Mis Actividades</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 mb-3">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Mi Historial Médico</h5>
+                <p class="card-text">Revisa tu historial de enfermedades, alergias, etc.</p>
+                <a asp-page="/HistorialesMedicos/PacienteHistorialMedico" class="btn btn-primary">Ver Mi Historial Médico</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 mb-3">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Mi Historial de Peso/Talla</h5>
+                <p class="card-text">Sigue tu progreso de peso, talla e IMC.</p>
+                <a asp-page="/HistorialesPacientes/PacienteHistorialPaciente" class="btn btn-primary">Ver Mi Historial</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 mb-3">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Mis Recordatorios</h5>
+                <p class="card-text">Consulta los recordatorios importantes.</p>
+                <a asp-page="/Recordatorios/PacienteRecordatorios" class="btn btn-primary">Ver Mis Recordatorios</a>
+            </div>
+        </div>
+    </div>
+</div>

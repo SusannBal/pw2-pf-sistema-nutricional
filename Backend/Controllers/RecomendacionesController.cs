@@ -66,5 +66,66 @@ namespace Backend.Controllers
                 });
         }
 
+        // PUT: api/Recomendaciones/5
+        [HttpPut("{id}")]
+        public async Task<IActionResult> PutRecomendacion(int id, Recomendacion recomendacion)
+        {
+            if (id != recomendacion.IdRecomendacion)
+            {
+                return BadRequest(new { mensaje = "El ID de la recomendación no coincide" });
+            }
+
+            // Asegurarse de que la consulta asociada no cambie
+            var existingRecomendacion = await BackendContext.Recomendaciones.AsNoTracking().FirstOrDefaultAsync(r => r.IdRecomendacion == id);
+            if (existingRecomendacion == null)
+            {
+                return NotFound(new { mensaje = "Recomendación no encontrada" });
+            }
+            if (existingRecomendacion.IdConsulta != recomendacion.IdConsulta)
+            {
+                return BadRequest(new { mensaje = "No se permite cambiar la consulta asociada a una recomendación existente." });
+            }
+
+            BackendContext.Entry(recomendacion).State = EntityState.Modified;
+
+            try
+            {
+                await BackendContext.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!RecomendacionExists(id))
+                {
+                    return NotFound(new { mensaje = "Recomendación no encontrada" });
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return Ok(new { mensaje = "Recomendación actualizada exitosamente" });
+        }
+
+        // DELETE: api/Recomendaciones/5
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteRecomendacion(int id)
+        {
+            var recomendacion = await BackendContext.Recomendaciones.FindAsync(id);
+            if (recomendacion == null)
+            {
+                return NotFound(new { mensaje = "Recomendación no encontrada" });
+            }
+
+            BackendContext.Recomendaciones.Remove(recomendacion);
+            await BackendContext.SaveChangesAsync();
+
+            return Ok(new { mensaje = "Recomendación eliminada exitosamente" });
+        }
+
+        private bool RecomendacionExists(int id)
+        {
+            return BackendContext.Recomendaciones.Any(e => e.IdRecomendacion == id);
+        }
     }
 }

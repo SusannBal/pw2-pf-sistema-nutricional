@@ -1,0 +1,64 @@
+﻿@page
+@model Frontend.Pages.RegistrosActividades.PacienteActividadesModel
+@{
+    ViewData["Title"] = "Mis Actividades Físicas";
+}
+
+<h1>Mis Actividades Físicas</h1>
+
+@if (!ViewData.ModelState.IsValid)
+{
+    <div class="alert alert-danger">
+        <ul>
+            @foreach (var entry in ViewData.ModelState.Values)
+            {
+                @foreach (var error in entry.Errors)
+                {
+                    <li>@error.ErrorMessage</li>
+                }
+            }
+        </ul>
+    </div>
+}
+
+@if (Model.RegistrosActividad == null || !Model.RegistrosActividad.Any())
+{
+    <div class="alert-message">
+        <h3>No tienes registros de actividades físicas.</h3>
+    </div>
+}
+else
+{
+    <div class="table-container">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>ID Registro</th>
+                    <th>Fecha</th>
+                    <th>Actividad</th>
+                    <th>Duración (min)</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var registro in Model.RegistrosActividad)
+                {
+                    <tr>
+                        <td>@registro.IdRegistro</td>
+                        <td>@registro.Fecha.ToShortDateString()</td>
+                        <td>
+                            @if (registro.Actividad != null)
+                            {
+                                @registro.Actividad.Nombre
+                            }
+                            else
+                            {
+                                <text>N/A</text>
+                            }
+                        </td>
+                        <td>@registro.DuracionMin</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}

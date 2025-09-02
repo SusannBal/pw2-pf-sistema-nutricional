@@ -1,0 +1,93 @@
+﻿@page
+@model Frontend.Pages.NutricionistaDashboardModel
+@{
+    ViewData["Title"] = "Panel de Nutricionista";
+}
+
+<h1>Bienvenido, @Model.UserName!</h1>
+
+<p>Desde aquí puedes gestionar tus pacientes, consultas, planes nutricionales y más.</p>
+
+<div class="row">
+    <div class="col-md-4 mb-3">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Mis Consultas</h5>
+                <p class="card-text">Visualiza y gestiona todas tus consultas.</p>
+                <a asp-page="/Consultas/Index" class="btn btn-primary">Ir a Consultas</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 mb-3">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Gestión de Pacientes</h5>
+                <p class="card-text">Administra la información de tus pacientes.</p>
+                <a asp-page="/Pacientes/Index" class="btn btn-primary">Ir a Pacientes</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 mb-3">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Planes Nutricionales</h5>
+                <p class="card-text">Crea y asigna planes nutricionales.</p>
+                <a asp-page="/PlanesNutricionales/Index" class="btn btn-primary">Ir a Planes</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 mb-3">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Diagnósticos</h5>
+                <p class="card-text">Registra y revisa diagnósticos.</p>
+                <a asp-page="/Diagnosticos/Index" class="btn btn-primary">Ir a Diagnósticos</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 mb-3">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Recomendaciones</h5>
+                <p class="card-text">Gestiona las recomendaciones para tus pacientes.</p>
+                <a asp-page="/Recomendaciones/Index" class="btn btn-primary">Ir a Recomendaciones</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 mb-3">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Actividades Físicas</h5>
+                <p class="card-text">Administra el catálogo de actividades físicas.</p>
+                <a asp-page="/ActividadesFisicas/Index" class="btn btn-primary">Ir a Actividades</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 mb-3">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Recordatorios</h5>
+                <p class="card-text">Envía recordatorios a tus pacientes.</p>
+                <a asp-page="/Recordatorios/Index" class="btn btn-primary">Ir a Recordatorios</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 mb-3">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Historiales Médicos</h5>
+                <p class="card-text">Revisa los historiales médicos de los pacientes.</p>
+                <a asp-page="/HistorialesMedicos/Index" class="btn btn-primary">Ir a Historiales Médicos</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 mb-3">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Historiales de Pacientes (Peso/Talla)</h5>
+                <p class="card-text">Revisa el progreso de peso y talla de los pacientes.</p>
+                <a asp-page="/HistorialesPacientes/Index" class="btn btn-primary">Ir a Historiales de Pacientes</a>
+            </div>
+        </div>
+    </div>
+</div>

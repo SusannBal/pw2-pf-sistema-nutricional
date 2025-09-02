@@ -42,3 +42,7 @@ D:\PW2\Proyecto\Backend\Backend\Backend\obj\Debug\net8.0\staticwebassets.build.j
 D:\PW2\Proyecto\Backend\Backend\Backend\obj\Debug\net8.0\staticwebassets.build.json
 D:\PW2\Proyecto\Backend\Backend\Backend\obj\Debug\net8.0\staticwebassets.build.json
 D:\PW2\Proyecto\Backend\Backend\Backend\obj\Debug\net8.0\staticwebassets.build.json
+D:\PW2\Proyecto\Backend\Backend\Backend\obj\Debug\net8.0\staticwebassets.build.json
+D:\PW2\Proyecto\Backend\Backend\Backend\obj\Debug\net8.0\staticwebassets.build.json
+D:\PW2\Proyecto\Backend\Backend\Backend\obj\Debug\net8.0\staticwebassets.build.json
+D:\PW2\Proyecto\Backend\Backend\Backend\obj\Debug\net8.0\staticwebassets.build.json
