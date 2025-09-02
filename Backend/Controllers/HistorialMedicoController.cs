@@ -14,8 +14,8 @@ namespace Backend.Controllers
     [ApiController]
     public class HistorialMedicoController : ControllerBase
     {
-        private readonly BackendContext BackendContext;
-        public HistorialMedicoController(BackendContext BackendContext)
+        private readonly Data.BackendContext BackendContext;
+        public HistorialMedicoController(Data.BackendContext BackendContext)
         {
             this.BackendContext = BackendContext;
         }
@@ -25,6 +25,7 @@ namespace Backend.Controllers
         {
             return await BackendContext.HistorialesMedicos
                 .Include(h => h.Paciente)
+                    .ThenInclude(p => p.Persona) // Incluir Persona del Paciente
                 .ToListAsync();
         }
 
@@ -34,6 +35,7 @@ namespace Backend.Controllers
         {
             var historial = await BackendContext.HistorialesMedicos
                 .Include(h => h.Paciente)
+                    .ThenInclude(p => p.Persona)
                 .FirstOrDefaultAsync(h => h.IdHistorialMedico == id);
 
             if (historial == null)
@@ -42,6 +44,24 @@ namespace Backend.Controllers
             }
 
             return historial;
+        }
+
+        // GET: api/HistorialMedico/byPaciente/5
+        [HttpGet("byPaciente/{pacienteId}")]
+        public async Task<ActionResult<IEnumerable<HistorialMedico>>> GetHistorialMedicoByPacienteId(int pacienteId)
+        {
+            var historiales = await BackendContext.HistorialesMedicos
+                .Where(hm => hm.IdPaciente == pacienteId)
+                .Include(hm => hm.Paciente)
+                    .ThenInclude(p => p.Persona)
+                .ToListAsync();
+
+            if (!historiales.Any())
+            {
+                return NotFound(new { mensaje = "No se encontraron historiales médicos para el paciente especificado." });
+            }
+
+            return historiales;
         }
 
         // POST: api/HistorialMedico
@@ -65,6 +85,66 @@ namespace Backend.Controllers
                 });
         }
 
+        // PUT: api/HistorialMedico/5
+        [HttpPut("{id}")]
+        public async Task<IActionResult> PutHistorialMedico(int id, HistorialMedico historialMedico)
+        {
+            if (id != historialMedico.IdHistorialMedico)
+            {
+                return BadRequest(new { mensaje = "El ID del historial médico no coincide" });
+            }
 
+            // Asegurarse de que el paciente asociado no cambie
+            var existingHistorial = await BackendContext.HistorialesMedicos.AsNoTracking().FirstOrDefaultAsync(hm => hm.IdHistorialMedico == id);
+            if (existingHistorial == null)
+            {
+                return NotFound(new { mensaje = "Historial médico no encontrado" });
+            }
+            if (existingHistorial.IdPaciente != historialMedico.IdPaciente)
+            {
+                return BadRequest(new { mensaje = "No se permite cambiar el paciente asociado a un historial médico existente." });
+            }
+
+            BackendContext.Entry(historialMedico).State = EntityState.Modified;
+
+            try
+            {
+                await BackendContext.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!HistorialMedicoExists(id))
+                {
+                    return NotFound(new { mensaje = "Historial médico no encontrado" });
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return Ok(new { mensaje = "Historial médico actualizado exitosamente" });
+        }
+
+        // DELETE: api/HistorialMedico/5
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteHistorialMedico(int id)
+        {
+            var historial = await BackendContext.HistorialesMedicos.FindAsync(id);
+            if (historial == null)
+            {
+                return NotFound(new { mensaje = "Historial médico no encontrado" });
+            }
+
+            BackendContext.HistorialesMedicos.Remove(historial);
+            await BackendContext.SaveChangesAsync();
+
+            return Ok(new { mensaje = "Historial médico eliminado exitosamente" });
+        }
+
+        private bool HistorialMedicoExists(int id)
+        {
+            return BackendContext.HistorialesMedicos.Any(e => e.IdHistorialMedico == id);
+        }
     }
 }

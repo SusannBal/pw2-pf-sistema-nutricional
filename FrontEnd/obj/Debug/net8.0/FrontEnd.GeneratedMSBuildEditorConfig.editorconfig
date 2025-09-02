@@ -1,0 +1,241 @@
+is_global = true
+build_property.TargetFramework = net8.0
+build_property.TargetFramework = net8.0
+build_property.TargetPlatformMinVersion = 
+build_property.TargetPlatformMinVersion = 
+build_property.UsingMicrosoftNETSdkWeb = true
+build_property.UsingMicrosoftNETSdkWeb = true
+build_property.ProjectTypeGuids = 
+build_property.ProjectTypeGuids = 
+build_property.InvariantGlobalization = 
+build_property.InvariantGlobalization = 
+build_property.PlatformNeutralAssembly = 
+build_property.PlatformNeutralAssembly = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property.RootNamespace = FrontEnd
+build_property.RootNamespace = FrontEnd
+build_property.ProjectDir = D:\PW2\Proyecto\Backend\Backend\FrontEnd\
+build_property.EnableComHosting = 
+build_property.EnableGeneratedComInterfaceComImportInterop = 
+build_property.RazorLangVersion = 8.0
+build_property.SupportLocalizedComponentNames = 
+build_property.GenerateRazorMetadataSourceChecksumAttributes = 
+build_property.MSBuildProjectDirectory = D:\PW2\Proyecto\Backend\Backend\FrontEnd
+build_property._RazorSourceGeneratorDebug = 
+build_property.EffectiveAnalysisLevelStyle = 8.0
+build_property.EnableCodeStyleSeverity = 
+
+[D:/PW2/Proyecto/Backend/Backend/FrontEnd/Pages/ActividadesFisicas/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQWN0aXZpZGFkZXNGaXNpY2FzXENyZWF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/PW2/Proyecto/Backend/Backend/FrontEnd/Pages/ActividadesFisicas/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQWN0aXZpZGFkZXNGaXNpY2FzXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/PW2/Proyecto/Backend/Backend/FrontEnd/Pages/Comidas/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ29taWRhc1xDcmVhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/PW2/Proyecto/Backend/Backend/FrontEnd/Pages/Comidas/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ29taWRhc1xJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/PW2/Proyecto/Backend/Backend/FrontEnd/Pages/Comidas/PacienteComidas.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ29taWRhc1xQYWNpZW50ZUNvbWlkYXMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/PW2/Proyecto/Backend/Backend/FrontEnd/Pages/Consultas/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ29uc3VsdGFzXENyZWF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/PW2/Proyecto/Backend/Backend/FrontEnd/Pages/Consultas/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ29uc3VsdGFzXERldGFpbHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/PW2/Proyecto/Backend/Backend/FrontEnd/Pages/Consultas/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ29uc3VsdGFzXEVkaXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/PW2/Proyecto/Backend/Backend/FrontEnd/Pages/Consultas/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ29uc3VsdGFzXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/PW2/Proyecto/Backend/Backend/FrontEnd/Pages/Consultas/NutricionistaConsultas.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ29uc3VsdGFzXE51dHJpY2lvbmlzdGFDb25zdWx0YXMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/PW2/Proyecto/Backend/Backend/FrontEnd/Pages/Consultas/PacienteConsultas.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ29uc3VsdGFzXFBhY2llbnRlQ29uc3VsdGFzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/PW2/Proyecto/Backend/Backend/FrontEnd/Pages/Diagnosticos/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRGlhZ25vc3RpY29zXENyZWF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/PW2/Proyecto/Backend/Backend/FrontEnd/Pages/Diagnosticos/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRGlhZ25vc3RpY29zXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/PW2/Proyecto/Backend/Backend/FrontEnd/Pages/Error.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRXJyb3IuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/PW2/Proyecto/Backend/Backend/FrontEnd/Pages/HistorialesMedicos/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSGlzdG9yaWFsZXNNZWRpY29zXENyZWF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/PW2/Proyecto/Backend/Backend/FrontEnd/Pages/HistorialesMedicos/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSGlzdG9yaWFsZXNNZWRpY29zXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/PW2/Proyecto/Backend/Backend/FrontEnd/Pages/HistorialesMedicos/PacienteHistorialMedico.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSGlzdG9yaWFsZXNNZWRpY29zXFBhY2llbnRlSGlzdG9yaWFsTWVkaWNvLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/PW2/Proyecto/Backend/Backend/FrontEnd/Pages/HistorialesPacientes/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSGlzdG9yaWFsZXNQYWNpZW50ZXNcQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/PW2/Proyecto/Backend/Backend/FrontEnd/Pages/HistorialesPacientes/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSGlzdG9yaWFsZXNQYWNpZW50ZXNcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/PW2/Proyecto/Backend/Backend/FrontEnd/Pages/HistorialesPacientes/PacienteHistorialPaciente.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSGlzdG9yaWFsZXNQYWNpZW50ZXNcUGFjaWVudGVIaXN0b3JpYWxQYWNpZW50ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/PW2/Proyecto/Backend/Backend/FrontEnd/Pages/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/PW2/Proyecto/Backend/Backend/FrontEnd/Pages/Login.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTG9naW4uY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/PW2/Proyecto/Backend/Backend/FrontEnd/Pages/Logout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTG9nb3V0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/PW2/Proyecto/Backend/Backend/FrontEnd/Pages/NutricionistaDashboard.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTnV0cmljaW9uaXN0YURhc2hib2FyZC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/PW2/Proyecto/Backend/Backend/FrontEnd/Pages/Nutricionistas/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTnV0cmljaW9uaXN0YXNcQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/PW2/Proyecto/Backend/Backend/FrontEnd/Pages/Nutricionistas/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTnV0cmljaW9uaXN0YXNcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/PW2/Proyecto/Backend/Backend/FrontEnd/Pages/Nutricionistas/Register.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTnV0cmljaW9uaXN0YXNcUmVnaXN0ZXIuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/PW2/Proyecto/Backend/Backend/FrontEnd/Pages/PacienteDashboard.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUGFjaWVudGVEYXNoYm9hcmQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/PW2/Proyecto/Backend/Backend/FrontEnd/Pages/Pacientes/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUGFjaWVudGVzXENyZWF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/PW2/Proyecto/Backend/Backend/FrontEnd/Pages/Pacientes/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUGFjaWVudGVzXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/PW2/Proyecto/Backend/Backend/FrontEnd/Pages/Pacientes/PacienteDetails.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUGFjaWVudGVzXFBhY2llbnRlRGV0YWlscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/PW2/Proyecto/Backend/Backend/FrontEnd/Pages/Pacientes/Register.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUGFjaWVudGVzXFJlZ2lzdGVyLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/PW2/Proyecto/Backend/Backend/FrontEnd/Pages/Personas/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUGVyc29uYXNcQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/PW2/Proyecto/Backend/Backend/FrontEnd/Pages/Personas/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUGVyc29uYXNcRWRpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/PW2/Proyecto/Backend/Backend/FrontEnd/Pages/Personas/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUGVyc29uYXNcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/PW2/Proyecto/Backend/Backend/FrontEnd/Pages/PlanesNutricionales/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUGxhbmVzTnV0cmljaW9uYWxlc1xDcmVhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/PW2/Proyecto/Backend/Backend/FrontEnd/Pages/PlanesNutricionales/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUGxhbmVzTnV0cmljaW9uYWxlc1xEZXRhaWxzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/PW2/Proyecto/Backend/Backend/FrontEnd/Pages/PlanesNutricionales/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUGxhbmVzTnV0cmljaW9uYWxlc1xJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/PW2/Proyecto/Backend/Backend/FrontEnd/Pages/PlanesNutricionales/PacientePlanes.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUGxhbmVzTnV0cmljaW9uYWxlc1xQYWNpZW50ZVBsYW5lcy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/PW2/Proyecto/Backend/Backend/FrontEnd/Pages/Privacy.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUHJpdmFjeS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/PW2/Proyecto/Backend/Backend/FrontEnd/Pages/Recomendaciones/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUmVjb21lbmRhY2lvbmVzXENyZWF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/PW2/Proyecto/Backend/Backend/FrontEnd/Pages/Recomendaciones/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUmVjb21lbmRhY2lvbmVzXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/PW2/Proyecto/Backend/Backend/FrontEnd/Pages/Recomendaciones/PacienteRecomendaciones.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUmVjb21lbmRhY2lvbmVzXFBhY2llbnRlUmVjb21lbmRhY2lvbmVzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/PW2/Proyecto/Backend/Backend/FrontEnd/Pages/Recordatorios/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUmVjb3JkYXRvcmlvc1xDcmVhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/PW2/Proyecto/Backend/Backend/FrontEnd/Pages/Recordatorios/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUmVjb3JkYXRvcmlvc1xJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/PW2/Proyecto/Backend/Backend/FrontEnd/Pages/Recordatorios/PacienteRecordatorios.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUmVjb3JkYXRvcmlvc1xQYWNpZW50ZVJlY29yZGF0b3Jpb3MuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/PW2/Proyecto/Backend/Backend/FrontEnd/Pages/RegistrosActividades/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUmVnaXN0cm9zQWN0aXZpZGFkZXNcQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/PW2/Proyecto/Backend/Backend/FrontEnd/Pages/RegistrosActividades/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUmVnaXN0cm9zQWN0aXZpZGFkZXNcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/PW2/Proyecto/Backend/Backend/FrontEnd/Pages/RegistrosActividades/PacienteActividades.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUmVnaXN0cm9zQWN0aXZpZGFkZXNcUGFjaWVudGVBY3RpdmlkYWRlcy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/PW2/Proyecto/Backend/Backend/FrontEnd/Pages/Shared/_ValidationScriptsPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/PW2/Proyecto/Backend/Backend/FrontEnd/Pages/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/PW2/Proyecto/Backend/Backend/FrontEnd/Pages/_ViewStart.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcX1ZpZXdTdGFydC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/PW2/Proyecto/Backend/Backend/FrontEnd/Pages/Shared/_Layout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hhcmVkXF9MYXlvdXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = b-k664fqafc8

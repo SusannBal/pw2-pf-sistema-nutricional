@@ -1,0 +1,103 @@
+﻿@page
+@model Frontend.Pages.Pacientes.PacienteDetailsModel
+@{
+    ViewData["Title"] = "Detalles y Gestión de Paciente";
+}
+
+<h1>Detalles y Gestión de Paciente: @Model.Paciente?.Persona?.Nombre @Model.Paciente?.Persona?.ApellidoPaterno</h1>
+
+<a asp-page="Index" class="btn btn-secondary mb-3">Volver al listado de Pacientes</a>
+
+@if (!ViewData.ModelState.IsValid)
+{
+    <div class="alert alert-danger">
+        <ul>
+            @foreach (var entry in ViewData.ModelState.Values)
+            {
+                @foreach (var error in entry.Errors)
+                {
+                    <li>@error.ErrorMessage</li>
+                }
+            }
+        </ul>
+    </div>
+}
+
+@if (Model.Paciente == null)
+{
+    <div class="alert alert-warning">
+        <p>Paciente no encontrado.</p>
+    </div>
+}
+else
+{
+    <div class="card mb-4">
+        <div class="card-header">
+            Información del Paciente
+        </div>
+        <div class="card-body">
+            <p><strong>ID Paciente:</strong> @Model.Paciente.IdPaciente</p>
+            <p><strong>CI:</strong> @Model.Paciente.Persona?.CI</p>
+            <p><strong>Email:</strong> @Model.Paciente.Persona?.Email</p>
+            <p><strong>Teléfono:</strong> @Model.Paciente.Persona?.Telefono</p>
+            <p><strong>Objetivo:</strong> @Model.Paciente.Objetivo</p>
+            <p><strong>Fecha de Registro:</strong> @Model.Paciente.FechaRegistro.ToShortDateString()</p>
+            <p><strong>Estado:</strong> @Model.Paciente.Estado</p>
+            <p><strong>Peso Inicial:</strong> @Model.Paciente.PesoInicial kg</p>
+            <p><strong>Talla Inicial:</strong> @Model.Paciente.TallaInicial m</p>
+            <p><strong>Tipo de Sangre:</strong> @Model.Paciente.TipoSangre</p>
+            <p><strong>Preferencias Alimentarias:</strong> @Model.Paciente.PreferenciasAlimentarias</p>
+        </div>
+    </div>
+
+    <h2 class="mt-4">Acciones de Gestión</h2>
+    <div class="list-group">
+        @* Se asume que estas páginas de creación pueden recibir un idPaciente para preseleccionar *@
+        <a asp-page="/Diagnosticos/Create" asp-route-idPaciente="@Model.Paciente.IdPaciente" class="list-group-item list-group-item-action">
+            <i class="bi bi-file-earmark-medical"></i> Generar Nuevo Diagnóstico para este Paciente
+        </a>
+        <a asp-page="/PlanesNutricionales/Create" asp-route-idPaciente="@Model.Paciente.IdPaciente" class="list-group-item list-group-item-action">
+            <i class="bi bi-journal-medical"></i> Crear Nuevo Plan Nutricional para este Paciente
+        </a>
+        <a asp-page="/Comidas/Create" asp-route-idPaciente="@Model.Paciente.IdPaciente" class="list-group-item list-group-item-action">
+            <i class="bi bi-egg-fried"></i> Añadir Comida a un Plan de este Paciente
+        </a>
+        <a asp-page="/RegistroActividad/Create" asp-route-idPaciente="@Model.Paciente.IdPaciente" class="list-group-item list-group-item-action">
+            <i class="bi bi-activity"></i> Registrar Actividad Física para este Paciente
+        </a>
+        <a asp-page="/HistorialesMedicos/Create" asp-route-idPaciente="@Model.Paciente.IdPaciente" class="list-group-item list-group-item-action">
+            <i class="bi bi-clipboard-data"></i> Registrar Historial Médico para este Paciente
+        </a>
+        <a asp-page="/HistorialesPacientes/Create" asp-route-idPaciente="@Model.Paciente.IdPaciente" class="list-group-item list-group-item-action">
+            <i class="bi bi-graph-up"></i> Registrar Historial de Peso/Talla para este Paciente
+        </a>
+    </div>
+
+    <h2 class="mt-4">Historiales del Paciente</h2>
+    <div class="list-group">
+        <a asp-page="/HistorialesMedicos/PacienteHistorialMedico" asp-route-idPaciente="@Model.Paciente.IdPaciente" class="list-group-item list-group-item-action">
+            <i class="bi bi-clipboard-data"></i> Ver Historial Médico del Paciente
+        </a>
+        <a asp-page="/HistorialesPacientes/PacienteHistorialPaciente" asp-route-idPaciente="@Model.Paciente.IdPaciente" class="list-group-item list-group-item-action">
+            <i class="bi bi-graph-up"></i> Ver Historial de Peso/Talla del Paciente
+        </a>
+        <a asp-page="/RegistroActividad/PacienteActividades" asp-route-idPaciente="@Model.Paciente.IdPaciente" class="list-group-item list-group-item-action">
+            <i class="bi bi-activity"></i> Ver Registros de Actividad Física del Paciente
+        </a>
+        <a asp-page="/Consultas/PacienteConsultas" asp-route-idPaciente="@Model.Paciente.IdPaciente" class="list-group-item list-group-item-action">
+            <i class="bi bi-calendar-check"></i> Ver Consultas del Paciente
+        </a>
+        <a asp-page="/PlanesNutricionales/PacientePlanes" asp-route-idPaciente="@Model.Paciente.IdPaciente" class="list-group-item list-group-item-action">
+            <i class="bi bi-journal-medical"></i> Ver Planes Nutricionales del Paciente
+        </a>
+        <a asp-page="/Comidas/PacienteComidas" asp-route-idPaciente="@Model.Paciente.IdPaciente" class="list-group-item list-group-item-action">
+            <i class="bi bi-egg-fried"></i> Ver Comidas del Paciente
+        </a>
+        <a asp-page="/Recomendaciones/PacienteRecomendaciones" asp-route-idPaciente="@Model.Paciente.IdPaciente" class="list-group-item list-group-item-action">
+            <i class="bi bi-lightbulb"></i> Ver Recomendaciones del Paciente
+        </a>
+        <a asp-page="/Recordatorios/PacienteRecordatorios" asp-route-idPaciente="@Model.Paciente.IdPaciente" class="list-group-item list-group-item-action">
+            <i class="bi bi-bell"></i> Ver Recordatorios del Paciente
+        </a>
+    </div>
+}

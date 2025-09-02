@@ -1,0 +1,62 @@
+﻿@page
+@model Frontend.Pages.Recomendaciones.PacienteRecomendacionesModel
+@{
+    ViewData["Title"] = "Mis Recomendaciones";
+}
+
+<h1>Mis Recomendaciones</h1>
+
+@if (!ViewData.ModelState.IsValid)
+{
+    <div class="alert alert-danger">
+        <ul>
+            @foreach (var entry in ViewData.ModelState.Values)
+            {
+                @foreach (var error in entry.Errors)
+                {
+                    <li>@error.ErrorMessage</li>
+                }
+            }
+        </ul>
+    </div>
+}
+
+@if (Model.Recomendaciones == null || !Model.Recomendaciones.Any())
+{
+    <div class="alert-message">
+        <h3>No tienes recomendaciones asignadas.</h3>
+    </div>
+}
+else
+{
+    <div class="table-container">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>ID Recomendación</th>
+                    <th>Detalle</th>
+                    <th>Consulta Asociada</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var recomendacion in Model.Recomendaciones)
+                {
+                    <tr>
+                        <td>@recomendacion.IdRecomendacion</td>
+                        <td>@recomendacion.Detalle</td>
+                        <td>
+                            @if (recomendacion.Consulta != null)
+                            {
+                                @($"Consulta ID: {recomendacion.Consulta.IdConsulta} - Motivo: {recomendacion.Consulta.Motivo}")
+                            }
+                            else
+                            {
+                                <text>N/A</text>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}

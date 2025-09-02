@@ -1,0 +1,95 @@
+﻿@page
+@model Frontend.Pages.Nutricionistas.RegisterModel
+
+@{
+    ViewData["Title"] = "Registrar Nuevo Nutricionista";
+}
+
+<h1>Registrar Nuevo Nutricionista</h1>
+
+<a asp-page="/Login" class="btn btn-secondary mb-3">Volver al Login</a>
+
+@if (!ViewData.ModelState.IsValid)
+{
+    <div class="alert alert-danger">
+        <ul>
+            @foreach (var entry in ViewData.ModelState.Values)
+            {
+                @foreach (var error in entry.Errors)
+                {
+                    <li>@error.ErrorMessage</li>
+                }
+            }
+        </ul>
+    </div>
+}
+
+<form method="post" class="needs-validation" novalidate>
+    <h3>Datos Personales</h3>
+    <div class="form-group mb-3">
+        <label asp-for="Persona.Nombre" class="form-label"></label>
+        <input asp-for="Persona.Nombre" class="form-control" required />
+        <span asp-validation-for="Persona.Nombre" class="text-danger"></span>
+    </div>
+
+    <div class="form-group mb-3">
+        <label asp-for="Persona.ApellidoPaterno" class="form-label"></label>
+        <input asp-for="Persona.ApellidoPaterno" class="form-control" required />
+        <span asp-validation-for="Persona.ApellidoPaterno" class="text-danger"></span>
+    </div>
+
+    <div class="form-group mb-3">
+        <label asp-for="Persona.ApellidoMaterno" class="form-label"></label>
+        <input asp-for="Persona.ApellidoMaterno" class="form-control" />
+        <span asp-validation-for="Persona.ApellidoMaterno" class="text-danger"></span>
+    </div>
+
+    <div class="form-group mb-3">
+        <label asp-for="Persona.CI" class="form-label"></label>
+        <input asp-for="Persona.CI" class="form-control" required />
+        <span asp-validation-for="Persona.CI" class="text-danger"></span>
+    </div>
+
+    <div class="form-group mb-3">
+        <label asp-for="Persona.Email" class="form-label"></label>
+        <input asp-for="Persona.Email" type="email" class="form-control" required />
+        <span asp-validation-for="Persona.Email" class="text-danger"></span>
+    </div>
+
+    <div class="form-group mb-3">
+        <label asp-for="Persona.Telefono" class="form-label"></label>
+        <input asp-for="Persona.Telefono" class="form-control" />
+        <span asp-validation-for="Persona.Telefono" class="text-danger"></span>
+    </div>
+
+    <div class="form-group mb-3">
+        <label asp-for="Persona.FechaNacimiento" class="form-label"></label>
+        <input asp-for="Persona.FechaNacimiento" type="date" class="form-control" required />
+        <span asp-validation-for="Persona.FechaNacimiento" class="text-danger"></span>
+    </div>
+
+    <h3 class="mt-4">Datos de Nutricionista</h3>
+    <div class="form-group mb-3">
+        <label asp-for="Nutricionista.Matricula" class="form-label"></label>
+        <input asp-for="Nutricionista.Matricula" class="form-control" required />
+        <span asp-validation-for="Nutricionista.Matricula" class="text-danger"></span>
+    </div>
+
+    <div class="form-group mb-3">
+        <label asp-for="Nutricionista.Especialidad" class="form-label"></label>
+        <input asp-for="Nutricionista.Especialidad" class="form-control" />
+        <span asp-validation-for="Nutricionista.Especialidad" class="text-danger"></span>
+    </div>
+
+    <div class="form-group mb-3">
+        <label asp-for="Nutricionista.AnosExperiencia" class="form-label"></label>
+        <input asp-for="Nutricionista.AnosExperiencia" type="number" class="form-control" />
+        <span asp-validation-for="Nutricionista.AnosExperiencia" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Registrar Nutricionista</button>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

@@ -9,9 +9,9 @@ namespace Backend.Controllers
     [ApiController]
     public class EstadisticasController : ControllerBase
     {
-        private readonly BackendContext BackendContext;
+        private readonly Data.BackendContext BackendContext;
 
-        public EstadisticasController(BackendContext BackendContext)
+        public EstadisticasController(Data.BackendContext BackendContext)
         {
             this.BackendContext = BackendContext;
         }

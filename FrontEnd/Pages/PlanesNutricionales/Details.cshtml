@@ -1,0 +1,68 @@
+﻿@page
+@model Frontend.Pages.PlanesNutricionales.DetailsModel
+@{
+    ViewData["Title"] = "Detalles del Plan Nutricional y Comidas";
+}
+
+<h1>Detalles del Plan Nutricional: @Model.PlanNutricional?.Nombre</h1>
+
+<a asp-page="Index" class="btn btn-secondary mb-3">Volver al listado de Planes</a>
+
+
+@if (Model.PlanNutricional == null)
+{
+    <div class="alert alert-warning">
+        <p>Plan nutricional no encontrado.</p>
+    </div>
+}
+else
+{
+    <div class="card mb-4">
+        <div class="card-header">
+            Información del Plan
+        </div>
+        <div class="card-body">
+            <p><strong>ID Plan:</strong> @Model.PlanNutricional.IdPlan</p>
+            <p><strong>Nombre:</strong> @Model.PlanNutricional.Nombre</p>
+            <p><strong>Descripción:</strong> @Model.PlanNutricional.Descripcion</p>
+            <p><strong>Consulta Asociada:</strong> @Model.PlanNutricional.Consulta?.IdConsulta</p>
+            <p><strong>Paciente:</strong> @(Model.PlanNutricional.Consulta?.Paciente?.Persona?.Nombre + " " + Model.PlanNutricional.Consulta?.Paciente?.Persona?.ApellidoPaterno)</p>
+        </div>
+    </div>
+
+    <h2 class="mt-4">Comidas de este Plan</h2>
+    <a asp-page="/Comidas/Create" asp-route-idPlan="@Model.PlanNutricional.IdPlan" class="btn btn-primary mb-3">Añadir Nueva Comida a este Plan</a>
+
+    @if (Model.Comidas == null || !Model.Comidas.Any())
+    {
+        <div class="alert alert-info">
+            <h3>No hay comidas registradas para este plan.</h3>
+        </div>
+    }
+    else
+    {
+        <div class="table-container">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>ID Comida</th>
+                        <th>Nombre</th>
+                        <th>Hora</th>
+                        <th>Descripción</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var comida in Model.Comidas)
+                    {
+                        <tr>
+                            <td>@comida.IdComida</td>
+                            <td>@comida.Nombre</td>
+                            <td>@comida.Hora.ToString(@"hh\:mm")</td>
+                            <td>@comida.Descripcion</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+}   

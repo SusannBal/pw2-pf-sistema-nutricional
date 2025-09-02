@@ -1,0 +1,95 @@
+﻿@page
+@model Frontend.Pages.Consultas.EditModel
+
+@{
+    ViewData["Title"] = "Editar Consulta";
+}
+
+<h1>Editar Consulta</h1>
+
+<a asp-page="Index" class="btn btn-secondary mb-3">Volver al listado</a>
+
+@if (!ViewData.ModelState.IsValid)
+{
+    <div class="alert alert-danger">
+        <ul>
+            @foreach (var entry in ViewData.ModelState.Values)
+            {
+                @foreach (var error in entry.Errors)
+                {
+                    <li>@error.ErrorMessage</li>
+                }
+            }
+        </ul>
+    </div>
+}
+
+<form method="post" class="needs-validation" novalidate>
+    <input type="hidden" asp-for="Consulta.IdConsulta" />
+    <input type="hidden" asp-for="Consulta.IdPaciente" />
+    <input type="hidden" asp-for="Consulta.IdNutricionista" />
+
+    <div class="form-group mb-3">
+        <label asp-for="Consulta.Fecha" class="form-label"></label>
+        <input asp-for="Consulta.Fecha" type="datetime-local" class="form-control" required />
+        <span asp-validation-for="Consulta.Fecha" class="text-danger"></span>
+    </div>
+
+    <div class="form-group mb-3">
+        <label class="form-label">Paciente (No editable)</label>
+        <input value="@(Model.Consulta.Paciente?.Persona?.Nombre + " " + Model.Consulta.Paciente?.Persona?.ApellidoPaterno)" class="form-control" readonly />
+    </div>
+
+    <div class="form-group mb-3">
+        <label class="form-label">Nutricionista (No editable)</label>
+        <input value="@(Model.Consulta.Nutricionista?.Persona?.Nombre + " " + Model.Consulta.Nutricionista?.Persona?.ApellidoPaterno)" class="form-control" readonly />
+    </div>
+
+    <div class="form-group mb-3">
+        <label asp-for="Consulta.Motivo" class="form-label"></label>
+        <input asp-for="Consulta.Motivo" class="form-control" />
+        <span asp-validation-for="Consulta.Motivo" class="text-danger"></span>
+    </div>
+
+    <div class="form-group mb-3">
+        <label asp-for="Consulta.Observaciones" class="form-label"></label>
+        <textarea asp-for="Consulta.Observaciones" class="form-control"></textarea>
+        <span asp-validation-for="Consulta.Observaciones" class="text-danger"></span>
+    </div>
+
+    <div class="form-group mb-3">
+        <label asp-for="Consulta.Estado" class="form-label"></label>
+        <input asp-for="Consulta.Estado" class="form-control" />
+        <span asp-validation-for="Consulta.Estado" class="text-danger"></span>
+    </div>
+
+    <div class="form-group mb-3">
+        <label asp-for="Consulta.FechaFin" class="form-label"></label>
+        <input asp-for="Consulta.FechaFin" type="datetime-local" class="form-control" />
+        <span asp-validation-for="Consulta.FechaFin" class="text-danger"></span>
+    </div>
+
+    <div class="form-group mb-3">
+        <label asp-for="Consulta.Costo" class="form-label"></label>
+        <input asp-for="Consulta.Costo" type="number" step="0.01" class="form-control" />
+        <span asp-validation-for="Consulta.Costo" class="text-danger"></span>
+    </div>
+
+    <div class="form-group mb-3">
+        <label asp-for="Consulta.Sintomas" class="form-label"></label>
+        <textarea asp-for="Consulta.Sintomas" class="form-control"></textarea>
+        <span asp-validation-for="Consulta.Sintomas" class="text-danger"></span>
+    </div>
+
+    <div class="form-group mb-3">
+        <label asp-for="Consulta.ExamenFisico" class="form-label"></label>
+        <textarea asp-for="Consulta.ExamenFisico" class="form-control"></textarea>
+        <span asp-validation-for="Consulta.ExamenFisico" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

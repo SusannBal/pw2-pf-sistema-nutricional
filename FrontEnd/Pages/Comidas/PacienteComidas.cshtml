@@ -1,0 +1,66 @@
+﻿@page
+@model Frontend.Pages.Comidas.PacienteComidasModel
+@{
+    ViewData["Title"] = "Mis Comidas";
+}
+
+<h1>Mis Comidas</h1>
+
+@if (!ViewData.ModelState.IsValid)
+{
+    <div class="alert alert-danger">
+        <ul>
+            @foreach (var entry in ViewData.ModelState.Values)
+            {
+                @foreach (var error in entry.Errors)
+                {
+                    <li>@error.ErrorMessage</li>
+                }
+            }
+        </ul>
+    </div>
+}
+
+@if (Model.Comidas == null || !Model.Comidas.Any())
+{
+    <div class="alert-message">
+        <h3>No tienes comidas registradas en tus planes nutricionales.</h3>
+    </div>
+}
+else
+{
+    <div class="table-container">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>ID Comida</th>
+                    <th>Nombre</th>
+                    <th>Hora</th>
+                    <th>Descripción</th>
+                    <th>Plan Nutricional</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var comida in Model.Comidas)
+                {
+                    <tr>
+                        <td>@comida.IdComida</td>
+                        <td>@comida.Nombre</td>
+                        <td>@comida.Hora.ToString(@"hh\:mm")</td>
+                        <td>@comida.Descripcion</td>
+                        <td>
+                            @if (comida.PlanNutricional != null)
+                            {
+                                @comida.PlanNutricional.Nombre
+                            }
+                            else
+                            {
+                                <text>N/A</text>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}

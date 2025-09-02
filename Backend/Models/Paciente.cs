@@ -13,7 +13,8 @@ namespace Backend.Models
         public int IdPersona { get; set; }
 
         [ForeignKey(nameof(IdPersona))]
-        [JsonIgnore]
+
+
         public Persona? Persona { get; set; }
 
         [StringLength(200)]

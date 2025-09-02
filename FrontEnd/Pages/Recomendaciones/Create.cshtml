@@ -1,0 +1,56 @@
+﻿@page
+@model Frontend.Pages.Recomendaciones.CreateModel
+
+@{
+    ViewData["Title"] = "Registrar Nueva Recomendación";
+}
+
+<h1>Registrar Nueva Recomendación</h1>
+
+<a asp-page="Index" class="btn btn-secondary mb-3">Volver al listado</a>
+
+@if (!ViewData.ModelState.IsValid)
+{
+    <div class="alert alert-danger">
+        <ul>
+            @foreach (var entry in ViewData.ModelState.Values)
+            {
+                @foreach (var error in entry.Errors)
+                {
+                    <li>@error.ErrorMessage</li>
+                }
+            }
+        </ul>
+    </div>
+}
+
+<form method="post" class="needs-validation" novalidate>
+    <div class="form-group mb-3">
+        <label asp-for="Recomendacion.IdConsulta" class="form-label">Consulta</label>
+        <select asp-for="Recomendacion.IdConsulta" class="form-control" required>
+            <option value="">-- Seleccione una Consulta --</option>
+            @if (Model.Consultas != null)
+            {
+                @foreach (var consulta in Model.Consultas)
+                {
+                    <option value="@consulta.IdConsulta">
+                        @($"Consulta ID: {consulta.IdConsulta} - Motivo: {consulta.Motivo} - Fecha: {consulta.Fecha.ToShortDateString()}")
+                    </option>
+                }
+            }
+        </select>
+        <span asp-validation-for="Recomendacion.IdConsulta" class="text-danger"></span>
+    </div>
+
+    <div class="form-group mb-3">
+        <label asp-for="Recomendacion.Detalle" class="form-label"></label>
+        <textarea asp-for="Recomendacion.Detalle" class="form-control" required></textarea>
+        <span asp-validation-for="Recomendacion.Detalle" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Registrar</button>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

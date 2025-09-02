@@ -1,0 +1,336 @@
+﻿@page
+@model Frontend.Pages.PacienteDashboardModel
+@{
+    ViewData["Title"] = "Panel de Paciente";
+}
+
+<style>
+    :root {
+        --primary-color: #28a745;
+        --primary-hover: #218838;
+        --secondary-color: #6c757d;
+        --light-bg: #f8f9fa;
+        --card-shadow: 0 6px 15px rgba(0,0,0,0.1);
+        --transition-speed: 0.3s;
+    }
+
+    .dashboard-header {
+        background: linear-gradient(135deg, var(--primary-color), #20c997);
+        color: white;
+        padding: 50px 20px;
+        border-radius: 16px;
+        margin-bottom: 30px;
+        text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+        box-shadow: var(--card-shadow);
+    }
+
+    .dashboard-card {
+        border-radius: 16px;
+        box-shadow: var(--card-shadow);
+        transition: all var(--transition-speed) ease;
+        height: 100%;
+        border: none;
+        overflow: hidden;
+    }
+
+        .dashboard-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 20px rgba(0,0,0,0.15);
+        }
+
+        .dashboard-card .card-title {
+            color: var(--primary-color);
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+
+        .dashboard-card .card-text {
+            color: var(--secondary-color);
+            margin-bottom: 1.5rem;
+        }
+
+        .dashboard-card .btn-primary {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+            border-radius: 50px;
+            padding: 8px 20px;
+            font-weight: 600;
+            transition: all var(--transition-speed) ease;
+        }
+
+            .dashboard-card .btn-primary:hover {
+                background-color: var(--primary-hover);
+                border-color: var(--primary-hover);
+                transform: scale(1.05);
+            }
+
+    .highlight-section {
+        background-color: var(--light-bg);
+        border-left: 5px solid var(--primary-color);
+        padding: 25px;
+        border-radius: 12px;
+        margin-bottom: 40px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    }
+
+        .highlight-section h2 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            font-weight: 700;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+            .highlight-section h2:after {
+                content: '';
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                width: 60px;
+                height: 3px;
+                background-color: var(--primary-color);
+                border-radius: 3px;
+            }
+
+    .highlight-item {
+        margin-bottom: 12px;
+        padding: 15px;
+        background-color: #ffffff;
+        border-radius: 10px;
+        box-shadow: 0 3px 8px rgba(0,0,0,0.04);
+        border-left: 4px solid var(--primary-color);
+        transition: all 0.2s ease;
+    }
+
+        .highlight-item:hover {
+            transform: translateX(5px);
+        }
+
+        .highlight-item strong {
+            color: #2c3e50;
+        }
+
+    .section-title {
+        color: var(--primary-color);
+        font-weight: 600;
+        margin: 25px 0 15px;
+        padding-bottom: 8px;
+        border-bottom: 2px solid #e9ecef;
+    }
+
+    .card-icon {
+        font-size: 2rem;
+        margin-bottom: 15px;
+        color: var(--primary-color);
+    }
+
+    .empty-state {
+        text-align: center;
+        padding: 20px;
+        color: var(--secondary-color);
+        background-color: #f8f9fa;
+        border-radius: 10px;
+        margin: 15px 0;
+    }
+
+        .empty-state i {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            display: block;
+            color: #ced4da;
+        }
+</style>
+
+<div class="dashboard-header text-center">
+    <h1 class="display-4 fw-bold">¡Bienvenido, @Model.UserName!</h1>
+    <p class="lead mb-0">Tu camino hacia una vida más saludable comienza aquí. 🍏</p>
+</div>
+
+@if (!ViewData.ModelState.IsValid)
+{
+    <div class="alert alert-danger rounded-3 shadow-sm">
+        <h5 class="alert-heading">⚠️ Error al cargar información</h5>
+        <ul class="mb-0">
+            @foreach (var entry in ViewData.ModelState.Values)
+            {
+                @foreach (var error in entry.Errors)
+                {
+                    <li>@error.ErrorMessage</li>
+                }
+            }
+        </ul>
+    </div>
+}
+
+<div class="highlight-section">
+    <h2>📅 Tu Semana de Salud</h2>
+
+    <h4 class="section-title">🍽️ Próximas Comidas</h4>
+    @if (Model.ProximasComidas.Any())
+    {
+        <div class="row">
+            @foreach (var comida in Model.ProximasComidas)
+            {
+                <div class="col-md-6 mb-3">
+                    <div class="highlight-item">
+                        <strong>@comida.Hora.ToString(@"hh\:mm") - @comida.Nombre</strong>
+                        <div class="mt-2 text-muted small">
+                            <i class="fas fa-clipboard-list me-1"></i> Plan: @comida.PlanNutricional?.Nombre
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        <div class="empty-state">
+            <i class="fas fa-utensils"></i>
+            <p>No hay comidas programadas para esta semana.</p>
+            <a asp-page="/PlanesNutricionales/PacientePlanes" class="btn btn-sm btn-outline-success mt-2">Ver Planes Nutricionales</a>
+        </div>
+    }
+
+    <h4 class="section-title">⏰ Recordatorios Importantes</h4>
+    @if (Model.ProximosRecordatorios.Any())
+    {
+        <div class="row">
+            @foreach (var recordatorio in Model.ProximosRecordatorios)
+            {
+                <div class="col-md-6 mb-3">
+                    <div class="highlight-item">
+                        <strong>@recordatorio.FechaHora.ToString("dd/MM HH:mm") - @recordatorio.Mensaje</strong>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        <div class="empty-state">
+            <i class="fas fa-bell"></i>
+            <p>No tienes recordatorios próximos.</p>
+        </div>
+    }
+
+    <h4 class="section-title">💪 Actividades Físicas Recomendadas</h4>
+    @if (Model.ProximasActividades.Any())
+    {
+        <div class="row">
+            @foreach (var actividad in Model.ProximasActividades)
+            {
+                <div class="col-md-6 mb-3">
+                    <div class="highlight-item">
+                        <strong>@actividad.Actividad?.Nombre</strong>
+                        <div class="mt-2 text-muted small">
+                            <i class="fas fa-clock me-1"></i> Duración: @actividad.DuracionMin minutos
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        <div class="empty-state">
+            <i class="fas fa-running"></i>
+            <p>No hay actividades físicas recomendadas para esta semana.</p>
+            <a asp-page="/RegistrosActividades/PacienteActividades" class="btn btn-sm btn-outline-success mt-2">Ver Actividades</a>
+        </div>
+    }
+</div>
+
+<h2 class="mb-4 fw-bold" style="color: var(--primary-color);">📋 Mis Opciones</h2>
+
+<div class="row">
+    <div class="col-md-4 mb-4">
+        <div class="card dashboard-card">
+            <div class="card-body text-center">
+                <div class="card-icon">👤</div>
+                <h5 class="card-title">Mis Datos Personales</h5>
+                <p class="card-text">Revisa y actualiza tu información personal.</p>
+                <a asp-page="/Personas/Edit" asp-route-id="@Model.PersonaId" class="btn btn-primary">Ver/Editar</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 mb-4">
+        <div class="card dashboard-card">
+            <div class="card-body text-center">
+                <div class="card-icon">🩺</div>
+                <h5 class="card-title">Mis Consultas</h5>
+                <p class="card-text">Visualiza el historial de tus consultas.</p>
+                <a asp-page="/Consultas/PacienteConsultas" class="btn btn-primary">Ver Consultas</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 mb-4">
+        <div class="card dashboard-card">
+            <div class="card-body text-center">
+                <div class="card-icon">📊</div>
+                <h5 class="card-title">Mis Planes Nutricionales</h5>
+                <p class="card-text">Revisa los planes nutricionales asignados.</p>
+                <a asp-page="/PlanesNutricionales/PacientePlanes" class="btn btn-primary">Ver Planes</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 mb-4">
+        <div class="card dashboard-card">
+            <div class="card-body text-center">
+                <div class="card-icon">🍽️</div>
+                <h5 class="card-title">Mis Comidas</h5>
+                <p class="card-text">Consulta las comidas de tus planes.</p>
+                <a asp-page="/Comidas/PacienteComidas" class="btn btn-primary">Ver Comidas</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 mb-4">
+        <div class="card dashboard-card">
+            <div class="card-body text-center">
+                <div class="card-icon">💡</div>
+                <h5 class="card-title">Mis Recomendaciones</h5>
+                <p class="card-text">Revisa las recomendaciones de tu nutricionista.</p>
+                <a asp-page="/Recomendaciones/PacienteRecomendaciones" class="btn btn-primary">Ver Recomendaciones</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 mb-4">
+        <div class="card dashboard-card">
+            <div class="card-body text-center">
+                <div class="card-icon">🏃</div>
+                <h5 class="card-title">Mis Actividades Físicas</h5>
+                <p class="card-text">Consulta las actividades físicas recomendadas.</p>
+                <a asp-page="/RegistrosActividades/PacienteActividades" class="btn btn-primary">Ver Actividades</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 mb-4">
+        <div class="card dashboard-card">
+            <div class="card-body text-center">
+                <div class="card-icon">📋</div>
+                <h5 class="card-title">Mi Historial Médico</h5>
+                <p class="card-text">Revisa tu historial de enfermedades, alergias, etc.</p>
+                <a asp-page="/HistorialesMedicos/PacienteHistorialMedico" class="btn btn-primary">Ver Historial</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 mb-4">
+        <div class="card dashboard-card">
+            <div class="card-body text-center">
+                <div class="card-icon">⚖️</div>
+                <h5 class="card-title">Mi Historial de Peso/Talla</h5>
+                <p class="card-text">Sigue tu progreso de peso, talla e IMC.</p>
+                <a asp-page="/HistorialesPacientes/PacienteHistorialPaciente" class="btn btn-primary">Ver Progreso</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 mb-4">
+        <div class="card dashboard-card">
+            <div class="card-body text-center">
+                <div class="card-icon">⏰</div>
+                <h5 class="card-title">Mis Recordatorios</h5>
+                <p class="card-text">Consulta los recordatorios importantes.</p>
+                <a asp-page="/Recordatorios/PacienteRecordatorios" class="btn btn-primary">Ver Recordatorios</a>
+            </div>
+        </div>
+    </div>
+</div>

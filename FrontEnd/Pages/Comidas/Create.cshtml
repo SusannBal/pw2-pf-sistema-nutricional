@@ -1,0 +1,69 @@
+﻿@page
+@model Frontend.Pages.Comidas.CreateModel
+
+@{
+    ViewData["Title"] = "Registrar Nueva Comida";
+}
+
+<h1>Registrar Nueva Comida</h1>
+
+<a asp-page="Index" class="btn btn-secondary mb-3">Volver al listado</a>
+
+@if (!ViewData.ModelState.IsValid)
+{
+    <div class="alert alert-danger">
+        <ul>
+            @foreach (var entry in ViewData.ModelState.Values)
+            {
+                @foreach (var error in entry.Errors)
+                {
+                    <li>@error.ErrorMessage</li>
+                }
+            }
+        </ul>
+    </div>
+}
+
+<form method="post" class="needs-validation" novalidate>
+    <div class="form-group mb-3">
+        <label asp-for="Comida.IdPlan" class="form-label">Plan Nutricional</label>
+        <select asp-for="Comida.IdPlan" class="form-control" required>
+            <option value="">-- Seleccione un Plan Nutricional --</option>
+            @if (Model.PlanesNutricionales != null)
+            {
+                @foreach (var plan in Model.PlanesNutricionales)
+                {
+                    <option value="@plan.IdPlan">
+                        @($"Plan ID: {plan.IdPlan} - Nombre: {plan.Nombre}")
+                    </option>
+                }
+            }
+        </select>
+        <span asp-validation-for="Comida.IdPlan" class="text-danger"></span>
+    </div>
+
+    <div class="form-group mb-3">
+        <label asp-for="Comida.Nombre" class="form-label"></label>
+        <input asp-for="Comida.Nombre" class="form-control" required />
+        <span asp-validation-for="Comida.Nombre" class="text-danger"></span>
+    </div>
+
+    <div class="form-group mb-3">
+        <label asp-for="Comida.Hora" class="form-label"></label>
+        <input asp-for="Comida.Hora" type="time" class="form-control" required />
+        <span asp-validation-for="Comida.Hora" class="text-danger"></span>
+    </div>
+
+    <div class="form-group mb-3">
+        <label asp-for="Comida.Descripcion" class="form-label"></label>
+        <textarea asp-for="Comida.Descripcion" class="form-control"></textarea>
+        <span asp-validation-for="Comida.Descripcion" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Registrar</button>
+
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

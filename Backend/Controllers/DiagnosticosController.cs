@@ -14,9 +14,9 @@ namespace Backend.Controllers
     [ApiController]
     public class DiagnosticosController : ControllerBase
     {
-        private readonly BackendContext BackendContext;
+        private readonly Data.BackendContext BackendContext;
 
-        public DiagnosticosController(BackendContext BackendContext)
+        public DiagnosticosController(Data.BackendContext BackendContext)
         {
             this.BackendContext = BackendContext;
         }
@@ -27,6 +27,8 @@ namespace Backend.Controllers
         {
             return await BackendContext.Diagnosticos
                 .Include(d => d.Consulta)
+                    .ThenInclude(c => c.Paciente)
+                        .ThenInclude(p => p.Persona) // Incluir Persona del Paciente
                 .ToListAsync();
         }
 
@@ -36,6 +38,8 @@ namespace Backend.Controllers
         {
             var diagnostico = await BackendContext.Diagnosticos
                 .Include(d => d.Consulta)
+                    .ThenInclude(c => c.Paciente)
+                        .ThenInclude(p => p.Persona)
                 .FirstOrDefaultAsync(d => d.IdDiagnostico == id);
 
             if (diagnostico == null)
@@ -73,6 +77,68 @@ namespace Backend.Controllers
                     mensaje = "Diagnóstico creado exitosamente",
                     diagnostico = diagnostico
                 });
+        }
+
+        // PUT: api/Diagnosticos/5
+        [HttpPut("{id}")]
+        public async Task<IActionResult> PutDiagnostico(int id, Diagnostico diagnostico)
+        {
+            if (id != diagnostico.IdDiagnostico)
+            {
+                return BadRequest(new { mensaje = "El ID del diagnóstico no coincide" });
+            }
+
+            // Asegurarse de que la consulta asociada no cambie
+            var existingDiagnostico = await BackendContext.Diagnosticos.AsNoTracking().FirstOrDefaultAsync(d => d.IdDiagnostico == id);
+            if (existingDiagnostico == null)
+            {
+                return NotFound(new { mensaje = "Diagnóstico no encontrado" });
+            }
+            if (existingDiagnostico.IdConsulta != diagnostico.IdConsulta)
+            {
+                return BadRequest(new { mensaje = "No se permite cambiar la consulta asociada a un diagnóstico existente." });
+            }
+
+            BackendContext.Entry(diagnostico).State = EntityState.Modified;
+
+            try
+            {
+                await BackendContext.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!DiagnosticoExists(id))
+                {
+                    return NotFound(new { mensaje = "Diagnóstico no encontrado" });
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return Ok(new { mensaje = "Diagnóstico actualizado exitosamente" });
+        }
+
+        // DELETE: api/Diagnosticos/5
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteDiagnostico(int id)
+        {
+            var diagnostico = await BackendContext.Diagnosticos.FindAsync(id);
+            if (diagnostico == null)
+            {
+                return NotFound(new { mensaje = "Diagnóstico no encontrado" });
+            }
+
+            BackendContext.Diagnosticos.Remove(diagnostico);
+            await BackendContext.SaveChangesAsync();
+
+            return Ok(new { mensaje = "Diagnóstico eliminado exitosamente" });
+        }
+
+        private bool DiagnosticoExists(int id)
+        {
+            return BackendContext.Diagnosticos.Any(e => e.IdDiagnostico == id);
         }
     }
 }

@@ -1,0 +1,70 @@
+﻿@page
+@model Frontend.Pages.Consultas.PacienteConsultasModel
+@{
+    ViewData["Title"] = "Mis Consultas";
+}
+
+<h1>Mis Consultas</h1>
+
+@if (!ViewData.ModelState.IsValid)
+{
+    <div class="alert alert-danger">
+        <ul>
+            @foreach (var entry in ViewData.ModelState.Values)
+            {
+                @foreach (var error in entry.Errors)
+                {
+                    <li>@error.ErrorMessage</li>
+                }
+            }
+        </ul>
+    </div>
+}
+
+@if (Model.Consultas == null || !Model.Consultas.Any())
+{
+    <div class="alert-message">
+        <h3>No tienes consultas registradas.</h3>
+    </div>
+}
+else
+{
+    <div class="table-container">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>ID Consulta</th>
+                    <th>Fecha</th>
+                    <th>Nutricionista</th> @* Changed from "Nutricionista" to "Mi Nutricionista" for clarity *@
+                    <th>Motivo</th>
+                    <th>Estado</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var consulta in Model.Consultas)
+                {
+                    <tr>
+                        <td>@consulta.IdConsulta</td>
+                        <td>@consulta.Fecha.ToShortDateString()</td>
+                        <td>
+                            @if (consulta.Nutricionista != null && consulta.Nutricionista.Persona != null)
+                            {
+                                @($"{consulta.Nutricionista.Persona.Nombre} {consulta.Nutricionista.Persona.ApellidoPaterno}")
+                            }
+                            else
+                            {
+                                <text>N/A</text>
+                            }
+                        </td>
+                        <td>@consulta.Motivo</td>
+                        <td>@consulta.Estado</td>
+                        <td>
+                            <a asp-page="/Consultas/Details" asp-route-id="@consulta.IdConsulta" class="btn btn-sm btn-info">Ver Detalles</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}

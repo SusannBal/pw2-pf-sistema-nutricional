@@ -10,7 +10,6 @@ namespace Backend.Models
         [Required(ErrorMessage = "El nombre de la actividad es obligatorio")]
         [StringLength(100)]
         public string? Nombre { get; set; }
-
         public string? Descripcion { get; set; }
     }
 }

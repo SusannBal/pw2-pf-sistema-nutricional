@@ -1,0 +1,36 @@
+﻿@page
+@model Frontend.Pages.LoginModel
+@{
+    ViewData["Title"] = "Iniciar Sesión";
+}
+
+<h1>Iniciar Sesión</h1>
+
+@if (!ViewData.ModelState.IsValid)
+{
+    <div class="alert alert-danger">
+        <ul>
+            @foreach (var entry in ViewData.ModelState.Values)
+            {
+                @foreach (var error in entry.Errors)
+                {
+                    <li>@error.ErrorMessage</li>
+                }
+            }
+        </ul>
+    </div>
+}
+
+<form method="post" class="needs-validation" novalidate>
+    <div class="form-group mb-3">
+        <label asp-for="CI" class="form-label">Cédula de Identidad (CI)</label>
+        <input asp-for="CI" class="form-control" required />
+        <span asp-validation-for="CI" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Ingresar</button>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

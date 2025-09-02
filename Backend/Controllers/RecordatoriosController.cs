@@ -14,27 +14,33 @@ namespace Backend.Controllers
     [ApiController]
     public class RecordatoriosController : ControllerBase
     {
-        private readonly BackendContext BackendContext;
+        private readonly Data.BackendContext _context;
 
-        public RecordatoriosController(BackendContext BackendContext)
+        public RecordatoriosController(Data.BackendContext context)
         {
-            this.BackendContext = BackendContext;
+            _context = context;
         }
 
         // GET: api/Recordatorios
+        // GET: api/Recordatorios?idPersona=5
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Recordatorio>>> GetRecordatorios()
+        public async Task<ActionResult<IEnumerable<Recordatorio>>> GetRecordatorios([FromQuery] int? idPersona)
         {
-            return await BackendContext.Recordatorios
-                .Include(r => r.Persona)
-                .ToListAsync();
+            var query = _context.Recordatorios.Include(r => r.Persona).AsQueryable();
+
+            if (idPersona.HasValue)
+            {
+                query = query.Where(r => r.IdPersona == idPersona.Value);
+            }
+
+            return await query.ToListAsync();
         }
 
         // GET: api/Recordatorios/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Recordatorio>> GetRecordatorio(int id)
         {
-            var recordatorio = await BackendContext.Recordatorios
+            var recordatorio = await _context.Recordatorios
                 .Include(r => r.Persona)
                 .FirstOrDefaultAsync(r => r.IdRecordatorio == id);
 
@@ -50,7 +56,7 @@ namespace Backend.Controllers
         [HttpPost]
         public async Task<ActionResult<Recordatorio>> PostRecordatorio(Recordatorio recordatorio)
         {
-            var persona = await BackendContext.Personas.FindAsync(recordatorio.IdPersona);
+            var persona = await _context.Personas.FindAsync(recordatorio.IdPersona);
             if (persona == null)
             {
                 return BadRequest(new { mensaje = "La persona especificada no existe" });
@@ -62,8 +68,8 @@ namespace Backend.Controllers
                 return BadRequest(new { mensaje = "La fecha y hora del recordatorio no puede ser en el pasado" });
             }
 
-            BackendContext.Recordatorios.Add(recordatorio);
-            await BackendContext.SaveChangesAsync();
+            _context.Recordatorios.Add(recordatorio);
+            await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetRecordatorio", new { id = recordatorio.IdRecordatorio },
                 new
@@ -71,6 +77,74 @@ namespace Backend.Controllers
                     mensaje = "Recordatorio creado exitosamente",
                     recordatorio = recordatorio
                 });
+        }
+
+        // PUT: api/Recordatorios/5
+        [HttpPut("{id}")]
+        public async Task<IActionResult> PutRecordatorio(int id, Recordatorio recordatorio)
+        {
+            if (id != recordatorio.IdRecordatorio)
+            {
+                return BadRequest(new { mensaje = "El ID del recordatorio no coincide" });
+            }
+
+            // Asegurarse de que la persona asociada no cambie
+            var existingRecordatorio = await _context.Recordatorios.AsNoTracking().FirstOrDefaultAsync(r => r.IdRecordatorio == id);
+            if (existingRecordatorio == null)
+            {
+                return NotFound(new { mensaje = "Recordatorio no encontrado" });
+            }
+            if (existingRecordatorio.IdPersona != recordatorio.IdPersona)
+            {
+                return BadRequest(new { mensaje = "No se permite cambiar la persona asociada a un recordatorio existente." });
+            }
+
+            // Validar que la fecha/hora no sea en el pasado
+            if (recordatorio.FechaHora < DateTime.Now)
+            {
+                return BadRequest(new { mensaje = "La fecha y hora del recordatorio no puede ser en el pasado" });
+            }
+
+            _context.Entry(recordatorio).State = EntityState.Modified;
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!RecordatorioExists(id))
+                {
+                    return NotFound(new { mensaje = "Recordatorio no encontrado" });
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return Ok(new { mensaje = "Recordatorio actualizado exitosamente" });
+        }
+
+        // DELETE: api/Recordatorios/5
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteRecordatorio(int id)
+        {
+            var recordatorio = await _context.Recordatorios.FindAsync(id);
+            if (recordatorio == null)
+            {
+                return NotFound(new { mensaje = "Recordatorio no encontrado" });
+            }
+
+            _context.Recordatorios.Remove(recordatorio);
+            await _context.SaveChangesAsync();
+
+            return Ok(new { mensaje = "Recordatorio eliminado exitosamente" });
+        }
+
+        private bool RecordatorioExists(int id)
+        {
+            return _context.Recordatorios.Any(e => e.IdRecordatorio == id);
         }
     }
 }

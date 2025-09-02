@@ -48,5 +48,6 @@ namespace Backend.Models
         [DeleteBehavior(DeleteBehavior.ClientSetNull)]
         [JsonIgnore]
         public Nutricionista? Nutricionista { get; set; }
+        public string? DisplayInfo { get; set; }
     }
 }

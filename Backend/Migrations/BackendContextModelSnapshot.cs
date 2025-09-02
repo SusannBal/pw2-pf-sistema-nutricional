@@ -83,6 +83,9 @@ namespace Backend.Migrations
                     b.Property<decimal?>("Costo")
                         .HasColumnType("decimal(10,2)");
 
+                    b.Property<string>("DisplayInfo")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Estado")
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)");
@@ -342,6 +345,9 @@ namespace Backend.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdPlan"));
 
                     b.Property<string>("Descripcion")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("DisplayInfo")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("IdConsulta")

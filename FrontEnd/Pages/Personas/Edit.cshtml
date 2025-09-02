@@ -1,0 +1,77 @@
+﻿@page
+@model Frontend.Pages.Personas.EditModel
+
+@{
+    ViewData["Title"] = "Editar Persona";
+}
+
+<h1>Editar Persona</h1>
+
+<a asp-page="Index" class="btn btn-secondary mb-3">Volver al listado</a>
+
+@if (!ViewData.ModelState.IsValid)
+{
+    <div class="alert alert-danger">
+        <ul>
+            @foreach (var entry in ViewData.ModelState.Values)
+            {
+                @foreach (var error in entry.Errors)
+                {
+                    <li>@error.ErrorMessage</li>
+                }
+            }
+        </ul>
+    </div>
+}
+
+<form method="post" class="needs-validation" novalidate>
+    <input type="hidden" asp-for="Persona.IdPersona" />
+    <input type="hidden" asp-for="Persona.CI" /> <!-- CI no editable, pero se envía para validación -->
+
+    <div class="form-group mb-3">
+        <label asp-for="Persona.Nombre" class="form-label"></label>
+        <input asp-for="Persona.Nombre" class="form-control" required />
+        <span asp-validation-for="Persona.Nombre" class="text-danger"></span>
+    </div>
+
+    <div class="form-group mb-3">
+        <label asp-for="Persona.ApellidoPaterno" class="form-label"></label>
+        <input asp-for="Persona.ApellidoPaterno" class="form-control" required />
+        <span asp-validation-for="Persona.ApellidoPaterno" class="text-danger"></span>
+    </div>
+
+    <div class="form-group mb-3">
+        <label asp-for="Persona.ApellidoMaterno" class="form-label"></label>
+        <input asp-for="Persona.ApellidoMaterno" class="form-control" />
+        <span asp-validation-for="Persona.ApellidoMaterno" class="text-danger"></span>
+    </div>
+
+    <div class="form-group mb-3">
+        <label asp-for="Persona.CI" class="form-label">CI (No editable)</label>
+        <input asp-for="Persona.CI" class="form-control" readonly />
+    </div>
+
+    <div class="form-group mb-3">
+        <label asp-for="Persona.Email" class="form-label"></label>
+        <input asp-for="Persona.Email" type="email" class="form-control" required />
+        <span asp-validation-for="Persona.Email" class="text-danger"></span>
+    </div>
+
+    <div class="form-group mb-3">
+        <label asp-for="Persona.Telefono" class="form-label"></label>
+        <input asp-for="Persona.Telefono" class="form-control" />
+        <span asp-validation-for="Persona.Telefono" class="text-danger"></span>
+    </div>
+
+    <div class="form-group mb-3">
+        <label asp-for="Persona.FechaNacimiento" class="form-label"></label>
+        <input asp-for="Persona.FechaNacimiento" type="date" class="form-control" required />
+        <span asp-validation-for="Persona.FechaNacimiento" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

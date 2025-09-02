@@ -1,0 +1,53 @@
+﻿@page
+@model Frontend.Pages.Recordatorios.PacienteRecordatoriosModel
+@{
+    ViewData["Title"] = "Mis Recordatorios";
+}
+
+<h1>Mis Recordatorios</h1>
+
+@if (!ViewData.ModelState.IsValid)
+{
+    <div class="alert alert-danger">
+        <ul>
+            @foreach (var entry in ViewData.ModelState.Values)
+            {
+                @foreach (var error in entry.Errors)
+                {
+                    <li>@error.ErrorMessage</li>
+                }
+            }
+        </ul>
+    </div>
+}
+
+@if (Model.Recordatorios == null || !Model.Recordatorios.Any())
+{
+    <div class="alert-message">
+        <h3>No tienes recordatorios asignados.</h3>
+    </div>
+}
+else
+{
+    <div class="table-container">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>ID Recordatorio</th>
+                    <th>Mensaje</th>
+                    <th>Fecha y Hora</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var recordatorio in Model.Recordatorios)
+                {
+                    <tr>
+                        <td>@recordatorio.IdRecordatorio</td>
+                        <td>@recordatorio.Mensaje</td>
+                        <td>@recordatorio.FechaHora.ToString("dd/MM/yyyy HH:mm")</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}

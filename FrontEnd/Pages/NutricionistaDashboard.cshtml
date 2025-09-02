@@ -1,0 +1,312 @@
+﻿@page
+@model Frontend.Pages.NutricionistaDashboardModel
+@{
+    ViewData["Title"] = "Panel de Nutricionista";
+}
+
+<style>
+    :root {
+        --primary-color: #28a745;
+        --primary-hover: #218838;
+        --secondary-color: #6c757d;
+        --light-bg: #f8f9fa;
+        --card-shadow: 0 6px 15px rgba(0,0,0,0.1);
+        --transition-speed: 0.3s;
+    }
+
+    .dashboard-header {
+        background: linear-gradient(135deg, var(--primary-color), #20c997);
+        color: white;
+        padding: 50px 20px;
+        border-radius: 16px;
+        margin-bottom: 30px;
+        text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+        box-shadow: var(--card-shadow);
+    }
+
+    .stats-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 20px;
+        margin-bottom: 40px;
+    }
+
+    .stat-card {
+        background: white;
+        border-radius: 16px;
+        padding: 25px;
+        box-shadow: var(--card-shadow);
+        text-align: center;
+        transition: all var(--transition-speed) ease;
+    }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 20px rgba(0,0,0,0.15);
+        }
+
+    .stat-number {
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: var(--primary-color);
+        margin-bottom: 10px;
+    }
+
+    .stat-label {
+        color: var(--secondary-color);
+        font-size: 1rem;
+    }
+
+    .highlight-section {
+        background-color: var(--light-bg);
+        border-left: 5px solid var(--primary-color);
+        padding: 25px;
+        border-radius: 12px;
+        margin-bottom: 40px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    }
+
+        .highlight-section h2 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            font-weight: 700;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+            .highlight-section h2:after {
+                content: '';
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                width: 60px;
+                height: 3px;
+                background-color: var(--primary-color);
+                border-radius: 3px;
+            }
+
+    .highlight-item {
+        margin-bottom: 12px;
+        padding: 15px;
+        background-color: #ffffff;
+        border-radius: 10px;
+        box-shadow: 0 3px 8px rgba(0,0,0,0.04);
+        border-left: 4px solid var(--primary-color);
+        transition: all 0.2s ease;
+    }
+
+        .highlight-item:hover {
+            transform: translateX(5px);
+        }
+
+    .section-title {
+        color: var(--primary-color);
+        font-weight: 600;
+        margin: 25px 0 15px;
+        padding-bottom: 8px;
+        border-bottom: 2px solid #e9ecef;
+    }
+
+    .empty-state {
+        text-align: center;
+        padding: 20px;
+        color: var(--secondary-color);
+        background-color: #f8f9fa;
+        border-radius: 10px;
+        margin: 15px 0;
+    }
+
+        .empty-state i {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            display: block;
+            color: #ced4da;
+        }
+
+    .action-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 20px;
+        margin-top: 30px;
+    }
+
+    .action-card {
+        background: white;
+        border-radius: 16px;
+        padding: 25px;
+        box-shadow: var(--card-shadow);
+        transition: all var(--transition-speed) ease;
+        text-align: center;
+        border: none;
+    }
+
+        .action-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 20px rgba(0,0,0,0.15);
+        }
+
+    .action-icon {
+        font-size: 2.5rem;
+        margin-bottom: 15px;
+        color: var(--primary-color);
+    }
+
+    .action-card .btn {
+        background-color: var(--primary-color);
+        border-color: var(--primary-color);
+        border-radius: 50px;
+        padding: 8px 20px;
+        font-weight: 600;
+        transition: all var(--transition-speed) ease;
+    }
+
+        .action-card .btn:hover {
+            background-color: var(--primary-hover);
+            border-color: var(--primary-hover);
+            transform: scale(1.05);
+        }
+</style>
+
+<div class="dashboard-header text-center">
+    <h1 class="display-4 fw-bold">¡Bienvenida, @Model.UserName!</h1>
+    <p class="lead mb-0">Gestiona tus pacientes y planes nutricionales de manera eficiente. 🍏</p>
+</div>
+
+@if (!ViewData.ModelState.IsValid)
+{
+    <div class="alert alert-danger rounded-3 shadow-sm mb-4">
+        <h5 class="alert-heading">⚠️ Error al cargar información</h5>
+        <ul class="mb-0">
+            @foreach (var entry in ViewData.ModelState.Values)
+            {
+                @foreach (var error in entry.Errors)
+                {
+                    <li>@error.ErrorMessage</li>
+                }
+            }
+        </ul>
+    </div>
+}
+
+<!-- Estadísticas rápidas -->
+<div class="stats-container">
+    <div class="stat-card">
+        <div class="stat-number">@(Model.ProximasConsultas?.Count ?? 0)</div>
+        <div class="stat-label">Consultas Próximas</div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-number">@(Model.ProximosRecordatorios?.Count ?? 0)</div>
+        <div class="stat-label">Recordatorios Programados</div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-number">12</div>
+        <div class="stat-label">Pacientes Activos</div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-number">7</div>
+        <div class="stat-label">Planes Nutricionales</div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-8">
+        <div class="highlight-section">
+            <h2>📅 Tu Agenda</h2>
+
+            <h4 class="section-title">🩺 Próximas Consultas</h4>
+            @if (Model.ProximasConsultas.Any())
+            {
+                <div class="row">
+                    @foreach (var consulta in Model.ProximasConsultas)
+                    {
+                        <div class="col-md-6 mb-3">
+                            <div class="highlight-item">
+                                <strong>@consulta.Fecha.ToString("dd/MM/yyyy HH:mm")</strong>
+                                <div class="mt-2">
+                                    <span class="badge bg-success me-2">Paciente</span>
+                                    @consulta.Paciente?.Persona?.Nombre @consulta.Paciente?.Persona?.ApellidoPaterno
+                                </div>
+                                <div class="mt-1 text-muted small">
+                                 
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+                <div class="text-end mt-3">
+                    <a href="/Consultas/Index" class="btn btn-sm btn-outline-success">Ver todas las consultas</a>
+                </div>
+            }
+            else
+            {
+                <div class="empty-state">
+                    <i class="fas fa-calendar-times"></i>
+                    <p>No tienes consultas programadas para los próximos días.</p>
+                    <a href="/Consultas/Create" class="btn btn-sm btn-outline-success mt-2">Programar Consulta</a>
+                </div>
+            }
+
+            <h4 class="section-title">⏰ Recordatorios Importantes</h4>
+            @if (Model.ProximosRecordatorios.Any())
+            {
+                <div class="row">
+                    @foreach (var recordatorio in Model.ProximosRecordatorios)
+                    {
+                        <div class="col-md-6 mb-3">
+                            <div class="highlight-item">
+                                <strong>@recordatorio.FechaHora.ToString("dd/MM HH:mm")</strong>
+                                <div class="mt-2">@recordatorio.Mensaje</div>
+                                <div class="mt-1 text-muted small">
+                                    <i class="fas fa-user me-1"></i>
+                                    @recordatorio.Persona?.Nombre @recordatorio.Persona?.ApellidoPaterno
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+                <div class="text-end mt-3">
+                    <a href="/Recordatorios/Index" class="btn btn-sm btn-outline-success">Ver todos los recordatorios</a>
+                </div>
+            }
+            else
+            {
+                <div class="empty-state">
+                    <i class="fas fa-bell-slash"></i>
+                    <p>No tienes recordatorios programados para los próximos días.</p>
+                </div>
+            }
+        </div>
+    </div>
+
+    <div class="col-lg-4">
+        <div class="action-grid">
+            <div class="action-card">
+                <div class="action-icon">👥</div>
+                <h5>Gestionar Pacientes</h5>
+                <p class="text-muted">Administra la información de tus pacientes.</p>
+                <a href="/Pacientes/Index" class="btn btn-success">Ver Pacientes</a>
+            </div>
+
+            <div class="action-card">
+                <div class="action-icon">📋</div>
+                <h5>Crear Plan Nutricional</h5>
+                <p class="text-muted">Diseña nuevos planes alimenticios.</p>
+                <a href="/PlanesNutricionales/Create" class="btn btn-success">Crear Plan</a>
+            </div>
+
+            <div class="action-card">
+                <div class="action-icon">🩺</div>
+                <h5>Programar Consulta</h5>
+                <p class="text-muted">Agenda una nueva cita con un paciente.</p>
+                <a href="/Consultas/Create" class="btn btn-success">Nueva Consulta</a>
+            </div>
+
+            <div class="action-card">
+                <div class="action-icon">⏰</div>
+                <h5>Crear Recordatorio</h5>
+                <p class="text-muted">Programa recordatorios para tus pacientes.</p>
+                <a href="/Recordatorios/Create" class="btn btn-success">Nuevo Recordatorio</a>
+            </div>
+        </div>
+    </div>
+</div>

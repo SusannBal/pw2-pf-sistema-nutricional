@@ -21,5 +21,6 @@ namespace Backend.Models
         [ForeignKey(nameof(IdConsulta))]
         [JsonIgnore]
         public Consulta? Consulta { get; set; }
+        public string? DisplayInfo { get; set; }
     }
 }
