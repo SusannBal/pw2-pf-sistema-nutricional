@@ -1,0 +1,144 @@
+﻿@page
+@model Frontend.Pages.Nutricionistas.IndexModel
+
+@{
+    ViewData["Title"] = "Listado de Nutricionistas";
+}
+
+<style>
+    .table-container {
+        margin-top: 20px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        border-radius: 8px;
+        overflow: hidden;
+    }
+
+    .table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 0;
+    }
+
+        .table th, .table td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .table thead th {
+            background-color: #f2f2f2;
+            color: #333;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .table tbody tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        .table tbody tr:hover {
+            background-color: #e9e9e9;
+            cursor: pointer;
+        }
+
+    .alert-message {
+        padding: 15px;
+        margin-bottom: 20px;
+        border: 1px solid transparent;
+        border-radius: 4px;
+        color: #a94442;
+        background-color: #f2dede;
+        border-color: #ebccd1;
+    }
+
+    .page-header {
+        color: #333;
+        margin-bottom: 25px;
+        font-size: 2.5em;
+        font-weight: 300;
+    }
+
+    .btn-create {
+        display: inline-block;
+        background-color: #007bff;
+        color: white;
+        padding: 10px 20px;
+        border-radius: 5px;
+        text-decoration: none;
+        margin-bottom: 20px;
+        transition: background-color 0.3s ease;
+    }
+
+        .btn-create:hover {
+            background-color: #0056b3;
+        }
+</style>
+
+<h1 class="page-header">Listado de Nutricionistas Registrados</h1>
+
+<div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+    <ul class="navbar-nav flex-grow-1">
+        <li class="nav-item">
+            <a class="btn-create" asp-area="" asp-page="/Nutricionistas/Create">Registrar Nuevo Nutricionista</a>
+        </li>
+    </ul>
+</div>
+
+@if (!ViewData.ModelState.IsValid)
+{
+    <div class="alert-message">
+        <ul>
+            @foreach (var entry in ViewData.ModelState.Values)
+            {
+                @foreach (var error in entry.Errors)
+                {
+                    <li>@error.ErrorMessage</li>
+                }
+            }
+        </ul>
+    </div>
+}
+
+@if (Model.Nutricionistas == null || !Model.Nutricionistas.Any())
+{
+    <div class="alert-message">
+        <h3>No hay nutricionistas registrados para mostrar.</h3>
+    </div>
+}
+else
+{
+    <div class="table-container">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Persona</th>
+                    <th>Matrícula</th>
+                    <th>Especialidad</th>
+                    <th>Años de Experiencia</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var nutricionista in Model.Nutricionistas)
+                {
+                    <tr>
+                        <td>@nutricionista.IdNutricionista</td>
+                        <td>
+                            @if (nutricionista.Persona != null)
+                            {
+                                @($"{nutricionista.Persona.Nombre} {nutricionista.Persona.ApellidoPaterno} {nutricionista.Persona.ApellidoMaterno}")
+                            }
+                            else
+                            {
+                                @($"Persona ID: {nutricionista.IdPersona}")
+                            }
+                        </td>
+                        <td>@nutricionista.Matricula</td>
+                        <td>@nutricionista.Especialidad</td>
+                        <td>@nutricionista.AnosExperiencia</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}

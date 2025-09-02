@@ -1,0 +1,86 @@
+﻿@page
+@model Frontend.Pages.Pacientes.CreateModel
+
+@{
+    ViewData["Title"] = "Registrar Nuevo Paciente";
+}
+
+<h1>Registrar Nuevo Paciente</h1>
+
+<a asp-page="Index" class="btn btn-secondary mb-3">Volver al listado</a>
+
+@if (!ViewData.ModelState.IsValid)
+{
+    <div class="alert alert-danger">
+        <ul>
+            @foreach (var entry in ViewData.ModelState.Values)
+            {
+                @foreach (var error in entry.Errors)
+                {
+                    <li>@error.ErrorMessage</li>
+                }
+            }
+        </ul>
+    </div>
+}
+
+<form method="post" class="needs-validation" novalidate>
+    <div class="form-group mb-3">
+        <label asp-for="Paciente.IdPersona" class="form-label">Persona</label>
+        <select asp-for="Paciente.IdPersona" class="form-control" required>
+            <option value="">-- Seleccione una Persona --</option>
+            @if (Model.Personas != null)
+            {
+                @foreach (var persona in Model.Personas)
+                {
+                    <option value="@persona.IdPersona">
+                        @persona.Nombre @persona.ApellidoPaterno @persona.ApellidoMaterno - CI: @persona.CI
+                    </option>
+                }
+            }
+        </select>
+        <span asp-validation-for="Paciente.IdPersona" class="text-danger"></span>
+    </div>
+
+    <div class="form-group mb-3">
+        <label asp-for="Paciente.Objetivo" class="form-label"></label>
+        <input asp-for="Paciente.Objetivo" class="form-control" />
+        <span asp-validation-for="Paciente.Objetivo" class="text-danger"></span>
+    </div>
+
+    <div class="form-group mb-3">
+        <label asp-for="Paciente.Estado" class="form-label"></label>
+        <input asp-for="Paciente.Estado" class="form-control" />
+        <span asp-validation-for="Paciente.Estado" class="text-danger"></span>
+    </div>
+
+    <div class="form-group mb-3">
+        <label asp-for="Paciente.PesoInicial" class="form-label"></label>
+        <input asp-for="Paciente.PesoInicial" type="number" step="0.01" class="form-control" />
+        <span asp-validation-for="Paciente.PesoInicial" class="text-danger"></span>
+    </div>
+
+    <div class="form-group mb-3">
+        <label asp-for="Paciente.TallaInicial" class="form-label"></label>
+        <input asp-for="Paciente.TallaInicial" type="number" step="0.01" class="form-control" />
+        <span asp-validation-for="Paciente.TallaInicial" class="text-danger"></span>
+    </div>
+
+    <div class="form-group mb-3">
+        <label asp-for="Paciente.TipoSangre" class="form-label"></label>
+        <input asp-for="Paciente.TipoSangre" class="form-control" />
+        <span asp-validation-for="Paciente.TipoSangre" class="text-danger"></span>
+    </div>
+
+    <div class="form-group mb-3">
+        <label asp-for="Paciente.PreferenciasAlimentarias" class="form-label"></label>
+        <textarea asp-for="Paciente.PreferenciasAlimentarias" class="form-control"></textarea>
+        <span asp-validation-for="Paciente.PreferenciasAlimentarias" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Registrar</button>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

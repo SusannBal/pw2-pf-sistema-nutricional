@@ -1,0 +1,141 @@
+﻿@page
+@model Frontend.Pages.Personas.IndexModel
+
+@{
+    ViewData["Title"] = "Listado de Personas";
+}
+
+<style>
+    .table-container {
+        margin-top: 20px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        border-radius: 8px;
+        overflow: hidden;
+    }
+
+    .table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 0;
+    }
+
+        .table th, .table td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .table thead th {
+            background-color: #f2f2f2;
+            color: #333;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .table tbody tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        .table tbody tr:hover {
+            background-color: #e9e9e9;
+            cursor: pointer;
+        }
+
+    .alert-message {
+        padding: 15px;
+        margin-bottom: 20px;
+        border: 1px solid transparent;
+        border-radius: 4px;
+        color: #a94442;
+        background-color: #f2dede;
+        border-color: #ebccd1;
+    }
+
+    .page-header {
+        color: #333;
+        margin-bottom: 25px;
+        font-size: 2.5em;
+        font-weight: 300;
+    }
+
+    .btn-create {
+        display: inline-block;
+        background-color: #007bff;
+        color: white;
+        padding: 10px 20px;
+        border-radius: 5px;
+        text-decoration: none;
+        margin-bottom: 20px;
+        transition: background-color 0.3s ease;
+    }
+
+        .btn-create:hover {
+            background-color: #0056b3;
+        }
+</style>
+
+<h1 class="page-header">Listado de Personas Registradas</h1>
+
+<div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+    <ul class="navbar-nav flex-grow-1">
+        <li class="nav-item">
+            <a class="btn-create" asp-area="" asp-page="/Personas/Create">Crear Nueva Persona</a>
+        </li>
+    </ul>
+</div>
+
+@if (!ViewData.ModelState.IsValid)
+{
+    <div class="alert-message">
+        <ul>
+            @foreach (var entry in ViewData.ModelState.Values)
+            {
+                @foreach (var error in entry.Errors)
+                {
+                    <li>@error.ErrorMessage</li>
+                }
+            }
+        </ul>
+    </div>
+}
+
+@if (Model.Personas == null || !Model.Personas.Any())
+{
+    <div class="alert-message">
+        <h3>No hay personas registradas para mostrar.</h3>
+    </div>
+}
+else
+{
+    <div class="table-container">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Apellido Paterno</th>
+                    <th>Apellido Materno</th>
+                    <th>CI</th>
+                    <th>Email</th>
+                    <th>Teléfono</th>
+                    <th>Fecha de Nacimiento</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var persona in Model.Personas)
+                {
+                    <tr>
+                        <td>@persona.IdPersona</td>
+                        <td>@persona.Nombre</td>
+                        <td>@persona.ApellidoPaterno</td>
+                        <td>@persona.ApellidoMaterno</td>
+                        <td>@persona.CI</td>
+                        <td>@persona.Email</td>
+                        <td>@persona.Telefono</td>
+                        <td>@persona.FechaNacimiento.ToShortDateString()</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}

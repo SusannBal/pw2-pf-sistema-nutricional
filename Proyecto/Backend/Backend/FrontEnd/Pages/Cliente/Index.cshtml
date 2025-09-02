@@ -1,0 +1,58 @@
+﻿@page
+@model Frontend.Pages.Clientes.IndexModel
+
+@{
+    ViewData["Title"] = "Listado de Clientes";
+}
+
+<h1 class="page-header">Listado de Clientes</h1>
+
+<a asp-page="Create" class="btn btn-primary mb-3">Crear Nuevo Cliente</a>
+
+@if (!ViewData.ModelState.IsValid)
+{
+    <div class="alert alert-danger">
+        <ul>
+            @foreach (var entry in ViewData.ModelState.Values)
+            {
+                @foreach (var error in entry.Errors)
+                {
+                    <li>@error.ErrorMessage</li>
+                }
+            }
+        </ul>
+    </div>
+}
+
+@if (Model.Clientes == null || !Model.Clientes.Any())
+{
+    <div class="alert alert-info">
+        <h3>No hay clientes registrados para mostrar.</h3>
+    </div>
+}
+else
+{
+    <div class="table-container">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Persona ID</th>
+                    <th>Fecha Registro</th>
+                    <th>Estado</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var cliente in Model.Clientes)
+                {
+                    <tr>
+                        <td>@cliente.IdCliente</td>
+                        <td>@cliente.PersonaId</td>
+                        <td>@cliente.FechaRegistro.ToShortDateString()</td>
+                        <td>@cliente.Estado</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}

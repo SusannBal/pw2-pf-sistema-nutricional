@@ -1,0 +1,105 @@
+﻿@page
+@model Frontend.Pages.HistorialesMedicos.CreateModel
+
+@{
+    ViewData["Title"] = "Registrar Nuevo Historial Médico";
+}
+
+<h1>Registrar Nuevo Historial Médico</h1>
+
+<a asp-page="Index" class="btn btn-secondary mb-3">Volver al listado</a>
+
+@if (!ViewData.ModelState.IsValid)
+{
+    <div class="alert alert-danger">
+        <ul>
+            @foreach (var entry in ViewData.ModelState.Values)
+            {
+                @foreach (var error in entry.Errors)
+                {
+                    <li>@error.ErrorMessage</li>
+                }
+            }
+        </ul>
+    </div>
+}
+
+<form method="post" class="needs-validation" novalidate>
+    <div class="form-group mb-3">
+        <label asp-for="HistorialMedico.IdPaciente" class="form-label">Paciente</label>
+        <select asp-for="HistorialMedico.IdPaciente" class="form-control" required>
+            <option value="">-- Seleccione un Paciente --</option>
+            @if (Model.Pacientes != null)
+            {
+                @foreach (var paciente in Model.Pacientes)
+                {
+                    <option value="@paciente.IdPaciente">
+                        @if (paciente.Persona != null)
+                        {
+                            @($"{paciente.Persona.Nombre} {paciente.Persona.ApellidoPaterno} {paciente.Persona.ApellidoMaterno}")
+                        }
+                        else
+                        {
+                            @($"Paciente ID: {paciente.IdPaciente}")
+                        }
+                    </option>
+                }
+            }
+        </select>
+        <span asp-validation-for="HistorialMedico.IdPaciente" class="text-danger"></span>
+    </div>
+
+    <div class="form-group mb-3">
+        <label asp-for="HistorialMedico.Enfermedad" class="form-label"></label>
+        <input asp-for="HistorialMedico.Enfermedad" class="form-control" required />
+        <span asp-validation-for="HistorialMedico.Enfermedad" class="text-danger"></span>
+    </div>
+
+    <div class="form-group mb-3">
+        <label asp-for="HistorialMedico.Descripcion" class="form-label"></label>
+        <textarea asp-for="HistorialMedico.Descripcion" class="form-control"></textarea>
+        <span asp-validation-for="HistorialMedico.Descripcion" class="text-danger"></span>
+    </div>
+
+    <div class="form-group mb-3">
+        <label asp-for="HistorialMedico.FechaDiagnostico" class="form-label"></label>
+        <input asp-for="HistorialMedico.FechaDiagnostico" type="date" class="form-control" />
+        <span asp-validation-for="HistorialMedico.FechaDiagnostico" class="text-danger"></span>
+    </div>
+
+    <div class="form-group mb-3">
+        <label asp-for="HistorialMedico.FechaCuracion" class="form-label"></label>
+        <input asp-for="HistorialMedico.FechaCuracion" type="date" class="form-control" />
+        <span asp-validation-for="HistorialMedico.FechaCuracion" class="text-danger"></span>
+    </div>
+
+    <div class="form-group mb-3">
+        <label asp-for="HistorialMedico.Alergias" class="form-label"></label>
+        <textarea asp-for="HistorialMedico.Alergias" class="form-control"></textarea>
+        <span asp-validation-for="HistorialMedico.Alergias" class="text-danger"></span>
+    </div>
+
+    <div class="form-group mb-3">
+        <label asp-for="HistorialMedico.Intolerancias" class="form-label"></label>
+        <textarea asp-for="HistorialMedico.Intolerancias" class="form-control"></textarea>
+        <span asp-validation-for="HistorialMedico.Intolerancias" class="text-danger"></span>
+    </div>
+
+    <div class="form-group mb-3">
+        <label asp-for="HistorialMedico.Tratamiento" class="form-label"></label>
+        <textarea asp-for="HistorialMedico.Tratamiento" class="form-control"></textarea>
+        <span asp-validation-for="HistorialMedico.Tratamiento" class="text-danger"></span>
+    </div>
+
+    <div class="form-group mb-3">
+        <label asp-for="HistorialMedico.Medicamentos" class="form-label"></label>
+        <textarea asp-for="HistorialMedico.Medicamentos" class="form-control"></textarea>
+        <span asp-validation-for="HistorialMedico.Medicamentos" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Registrar</button>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
